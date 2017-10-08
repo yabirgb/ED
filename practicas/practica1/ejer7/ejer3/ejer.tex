@@ -1,0 +1,18 @@
+\subsection*{Ejercicio 3}
+
+\begin{enumerate}
+\item Se trata de un algoritmo de busqueda binaria. Se parte de un
+  vector ordenado y seligen dos variables que representan los extremos
+  del vector. Una vez fijadas las variables \textit{sup} e
+  \textit{inf} seleccionamos la posición que está en el
+  \textit{'centro'} respecto a ambas. Si coincide con lo que buscamos
+  hemos terminado, si es más granda cambiamos el extremo infererior a
+  este valor del \textit{'centro'} y si es menor cambiamos el extremo
+  superior.
+
+\item La complejidad teórica es $log_2(n)$ ya que fuera del bucle
+  \textit{while} todo tiene complejidad $O(1)$ y dentro, en cada
+  iteración, reducimos la condición en un orden de dos. Por tanto el
+  algoritmo tiene la mayor de las complejidades, $log_2(n)$.
+\end{enumerate}
+

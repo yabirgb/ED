@@ -1,0 +1,54 @@
+\subsection*{Ejercicio 2}
+\begingroup
+\fontsize{10pt}{12pt}\selectfont
+
+\ejercicio{Replique el experimento de ajuste por regresión a los
+  resultados obtenidos en el ejercicio 1 que calculaba la eficiencia
+  del algoritmo de ordenación de la burbuja. Para ello considere que
+  f(x) es de la forma ax2+bx+c}
+
+\begin{verbatim}
+gnuplot> f(x) = a*x**2 + b*x + c
+gnuplot> fit f(x) 'burbuja.dat' via a,b,c
+iter      chisq       delta/lim  lambda   a             b             c            
+   0 9.4779953800e+18   0.00e+00  2.29e+08    1.000000e+00   1.000000e+00   1.000000e+00
+   1 2.8930837514e+14  -3.28e+09  2.29e+07    5.483216e-03   9.999583e-01   1.000000e+00
+   2 1.1088359994e+09  -2.61e+10  2.29e+06   -4.157021e-05   9.999560e-01   1.000000e+00
+   3 1.1074771167e+09  -1.23e+02  2.29e+05   -4.186834e-05   9.997456e-01   1.000000e+00
+   4 1.0623066684e+09  -4.25e+03  2.29e+04   -4.100547e-05   9.791424e-01   9.999972e-01
+   5 1.1026258621e+08  -8.63e+05  2.29e+03   -1.320633e-05   3.153609e-01   9.999082e-01
+   6 2.4744107522e+03  -4.46e+09  2.29e+02   -5.582392e-08   1.356232e-03   9.998648e-01
+   7 6.9496420833e+00  -3.55e+07  2.29e+01    6.677312e-09  -1.361516e-04   9.997330e-01
+   8 6.7706268175e+00  -2.64e+03  2.29e+00    6.631652e-09  -1.344808e-04   9.867374e-01
+   9 1.2756014394e+00  -4.31e+05  2.29e-01    4.532482e-09  -5.929887e-05   4.257803e-01
+  10 1.7360191103e-02  -7.25e+06  2.29e-02    2.950202e-09  -2.629377e-06   2.950736e-03
+  11 1.7288698672e-02  -4.14e+02  2.29e-03    2.938185e-09  -2.199011e-06  -2.603657e-04
+  12 1.7288698672e-02  -2.38e-06  2.29e-04    2.938184e-09  -2.198978e-06  -2.606096e-04
+iter      chisq       delta/lim  lambda   a             b             c            
+
+After 12 iterations the fit converged.
+final sum of squares of residuals : 0.0172887
+rel. change during last iteration : -2.38461e-11
+
+degrees of freedom    (FIT_NDF)                        : 57
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0174158
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.000303311
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 2.93818e-09      +/- 3.354e-11    (1.142%)
+b               = -2.19898e-06     +/- 1.029e-06    (46.81%)
+c               = -0.00026061      +/- 0.006615     (2538%)
+
+correlation matrix of the fit parameters:
+                a      b      c      
+a               1.000 
+b              -0.968  1.000 
+c               0.738 -0.861  1.000 
+gnuplot> a = 2.93818e-09
+gnuplot> b = -2.19898e-06
+gnuplot> c = -0.00026061
+gnuplot> plot 'burbuja.dat', f(x)
+
+\end{verbatim}
+\endgroup
