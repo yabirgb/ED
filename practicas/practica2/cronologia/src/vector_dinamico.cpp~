@@ -1,0 +1,44 @@
+#include <iostream>
+#include "vector_dinamico.h"
+
+template<class T>
+VectorDinamico<T>::VectorDinamico(): elements(0), max_elements(0), datos(0){}
+
+template<class T>
+VectorDinamico<T>::VectorDinamico(const Vector_Dinamico<T>& original){
+
+  elements = original.used();
+  size = original.size();
+
+  datos = new T [size];
+
+  for (int i = 0; i < n; i++){
+    datos[i] = original[i];
+  }
+
+}
+
+template<class T>
+VectorDinamico<T>::~Vector_Dinamico<T>(){
+  destruir();
+}
+
+template<class T>
+void VectorDinamico<T>::destruir(){
+  
+  if(datos != 0)
+    delete[] eventos;
+  
+  elements = 0;
+  max_elements = 0;
+}
+
+template<class T>
+int VectorDinamico<T>::size(){
+  return max_elements;
+}
+
+template<class T>
+int VectorDinamico<T>::used(){
+  return elements;
+}
