@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage[spanish]{babel}
+
+\usepackage{multirow}
+
+\usepackage[utf8]{inputenc}
+\setlength{\parindent}{0mm}
+
+% Para el código
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\newcommand{\n}[1]{{\color{gray}#1}}
+\lstset{numbers=left,numberstyle=\small\color{gray}}
+
+% Entorno para estilo de ejercicios
+\newenvironment{ejercicio}[1]{\textbf{#1} \vspace*{5mm}}{\vspace*{5mm}}
+\setlength{\parindent}{10pt} 
+
+\begin{document}
+
+\title{Estructura de datos - Reto 1}
+\author{Yábir García Benchakhtir}
+\date{\today}
+\maketitle
+
+\input{ejer1}
+
+\input{ejer2}
+
+\end{document}

@@ -1,0 +1,74 @@
+
+\begin{ejercicio}
+  {1. Usando la notación O , determinar la eficiencia de los siguientes segmentos de
+    código:}
+
+  \begin{lstlisting}[
+      language=C++, directivestyle={\color{black}},
+      emph={int,char,double,float,unsigned}]
+      int n, j; int i=1; int x=0;
+      do{
+        j = 1;
+        while(j <= n){
+          j=j*2;
+          x++;
+        }
+        i++;
+      }while(i <= n)
+    \end{lstlisting}
+
+    \begin{flushleft}
+      En la primera línea tenemos operaciones de asignación a
+      variables con complejidad $O(1)$. Encontramos un bucle
+      \textit{do-while} (líneas 2-9) que contiene:
+    \end{flushleft}
+
+
+    \begin{itemize}
+    \item Una asignación de variable, $O(1)$.
+    \item Un bucle \textit{while} que se repite $log_2n$ veces con
+      operaciones $O(1)$. La complejidad de esta estructura es pues
+      $log_2(n)$.
+    \item Una operación de incremento que contamos como $O(1)$.
+    \end{itemize}
+
+    \begin{flushleft}
+      La complejidad de esta última estructura es por tanto $nlog_2n$
+      ya que el bucle se repite $n$ veces y la mayor complejidad en
+      terminos de Big O es $log_2n$.  Así la complejidad que obtenemos
+      para el código completo es:
+    \end{flushleft}
+
+    \[
+      O(\max\{1, nlog_2n\} = O(nlog_2n)
+    \]
+
+     \begin{lstlisting}[
+      language=C++, directivestyle={\color{black}},
+      emph={int,char,double,float,unsigned}]
+      int n, j; int i=2; int x=0;
+      do{
+        j = 1;
+        while(j <= i){
+          j=j*2;
+          x++;
+        }
+        i++;
+      }while(i <= n)
+    \end{lstlisting}
+
+    \begin{flushleft}
+      En el segundo caso estamos repitiendo todo el contenido del
+      \textit{do-while} $n$ veces y dentro de este bucle tenemos una
+      sentencia \textit{while} que depende de una variable $j$ que aumenta
+      de dos en dos. Dentro de este solo tenemos sentencios de complejidad $O(1)$
+      luego la expresión de la complejidad es del tipo:
+    \end{flushleft}
+
+
+  \[
+    \sum\limits_{i=1}^{n}{log_2(i)} = log_2{\prod\limits_{i=1}^{n}i} = log_2(n!)
+  \]
+
+
+\end{ejercicio}

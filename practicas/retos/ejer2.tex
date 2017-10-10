@@ -1,0 +1,73 @@
+
+\begin{ejercicio}
+  {2. Para cada función $f(n)$ y cada tiempo $t$ de la tabla siguiente, determinar el mayor tamaño de un problema que puede ser resuelto en un tiempo t (suponiendo que el algoritmo para resolver el problema tarda $f(n)$ microsegundos, es decir, $f(n) \time 10 ^{-6} sg$ .}
+\end{ejercicio}
+
+
+\begin{flushleft}
+  Para ello vamos a obtener una expresión sencilla de la función que
+  la relaciones con el tiempo que se nos pide $t = f(n)\cdot 10^6$.
+\end{flushleft}
+
+\begin{itemize}
+\item $f(n) = log_{2}$
+  \begin{flushleft}
+    Tenemos que despejar el valor de n en la expresión: $10^{-6}log_2n = t$
+  \end{flushleft}
+  \[
+    10^{-6}log_2n = t \implies log_2n = t\cdot 10^6 \implies 2^{t\cdot 10^6} = n
+  \]
+
+\item $f(n) = nlog_2n$
+  \[
+    nlog_2n = t\cdot 10^6
+  \]
+
+  \begin{flushleft}
+    En este caso no existe expresión analitica que podamos simplificar para resolver esta ecuación.
+  \end{flushleft}
+
+\item $f(n) = n$
+  \[
+    n = t \cdot 10^6
+  \]
+
+\item $f(n) = n^3$
+  \[
+    n = \sqrt[3]{t\cdot 10^6} = 100 \sqrt[3]{t}
+  \]
+
+\item $f(n) = 2^n$
+
+  \[
+    2^n = t \cdot 10^6 \implies n = log_2(t\cdot 10^6)
+  \]
+
+\item $f(n) = n!$
+
+  \[
+    n! = t\cdot 10^6
+  \]
+  
+\end{itemize}
+
+\begin{flushleft}
+  Usando las expresiones anteriores despejamos los valores de n para los tiempos dados:
+\end{flushleft}
+
+
+\begin{table}[!htbp]
+\centering
+\label{Tabla}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ \multirow{2}{*}{$f(n)$}& \multicolumn{5}{l|}{\hfil$t$} \\ \cline{2-6} 
+ &  1 segundo  & 1 hora   & 1 semana   &  1 año  & 1000 años  \\ \hline
+ $log_2n$ &  $9.9 \cdot 10^{301029}$  &  $2^{3600\cdot 10^6}$  &  $2^{6.04\cdot 10^{12}}$  &  $2^{3.15\cdot 10^{13}}$  &  $2^{3.15\cdot 10^{16}}$ \\ \hline
+ $n$&  $10^6$  &  $3.600\cdot 10^9 $  &  $6.048 \cdot 10^{11}$  &  $3.1536 \cdot 10^{13}$  & $3.1536 \cdot 10^{16}$  \\ \hline
+ $nlog_2n$&  $62746$  &  $1.33378\cdot 10^8$  &  $1.77631\cdot 10^{10}$  &  $7.97634\cdot 10^{11}$  &  $6.41137\cdot 10^{14}$ \\ \hline
+ $n^3$&  $100$  &  $1532$  &  $8456$  &  $31593$  & $315938$  \\ \hline
+ $2^n$&  $19$  &  $31$  & $39$   &  $44$  & $54$  \\ \hline
+ $n!$&  $9$  &  $12$  &  $14$  &  $16$  &  $18$ \\ \hline
+\end{tabular}
+\end{table}
