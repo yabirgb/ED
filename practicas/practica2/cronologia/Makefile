@@ -18,19 +18,19 @@ documentacion:
 # ************ Compilación de módulos ************
 #$(BIN)/pruebacronologia:
 
-$(OBJ)/Darray.o : $(SRC)/dinamicArray.cpp $(INC)/dinamicArray.h  $(INC)/historicDate.h
-	$(CXX) $(CPPFLAGS) -o $(OBJ)/Darray.o $(SRC)/dinamicArray.cpp 
+#$(OBJ)/Darray.o : $(SRC)/dinamicArray.cpp $(INC)/dinamicArray.h  $(INC)/historicDate.h
+#	$(CXX) $(CPPFLAGS) -o $(OBJ)/Darray.o $(SRC)/dinamicArray.cpp 
 
 
 # ************ Tests ***************
 
 
-$(OBJ)/test.o : $(TST)/test.cpp $(INC)/dinamicArray.h
-	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/test.o $(TST)/test.cpp 
+$(OBJ)/test.o : $(TST)/test.cpp $(INC)/dinamicArray.h 
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/test.o $(TST)/test.cpp
 
 
-$(BIN)/test : $(OBJ)/test.o $(OBJ)/Darray.o
-	$(CXX) -o $(BIN)/test $(OBJ)/test.o $(OBJ)/Darray.o  
+$(BIN)/test : $(OBJ)/test.o 
+	$(CXX) -o $(BIN)/test $(OBJ)/test.o   
 
 
 # ************ Limpieza ************
