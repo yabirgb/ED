@@ -1,6 +1,7 @@
 #include <iostream>
 #include "dinamicArray.h"
 
+
 template<class T>
 DinamicArray<T>::DinamicArray(): elements(0), max_elements(0), data(0){}
 
@@ -15,9 +16,9 @@ template<class T>
 DinamicArray<T>::DinamicArray(const DinamicArray<T>& original){
 
   elements = original.used();
-  size = original.size();
+  max_elements = original.size();
 
-  data = new T [size];
+  data = new T [max_elements];
 
   for (int i = 0; i < used(); i++){
     data[i] = original[i];
@@ -53,12 +54,14 @@ int DinamicArray<T>::used() const{
 
 template<class T>
 T& DinamicArray<T>::operator [] (int i){
-  return data[i];
+  if(i < size())
+    return data[i];
 }
 
 template<class T>
 const T& DinamicArray<T>::operator [] (int i) const{
-  return data[i];
+  if(i < size())
+    return data[i];
 }
 
 
@@ -83,14 +86,14 @@ DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray<T>& original){
 template <class T>
 void DinamicArray<T>::boost(int s){
 
-  if (s > 0 && s > size() ){
-    T * aux = new T [size];
-    for(int i=0; i < used(); i++){
+  if (s > 0){
+    int newSize = size() + s;
+    T* aux = new T[newSize];
+    for(int i=0; i < used(); i++)
       aux[i] = data[i];
-    }
 
     delete[] data;
-    max_elements = s;
+    max_elements = newSize;
     data = aux;
   }
   
@@ -99,9 +102,34 @@ void DinamicArray<T>::boost(int s){
 template <class T>
 void DinamicArray<T>::push (T e){
   if(used() == size())
-    boost(size() + 1);
+    boost(1);
     
    data[used()] = e;
    elements++;
 
 }
+
+
+template <class T>
+bool DinamicArray<T>::insert(T e, int pos){
+
+  bool success = false;
+  
+  if(pos >= 0){
+    if(used() == size())
+      boost(1);
+
+    for(int i= used()+1; i >= pos; i--)
+      data[i] = data[i-1];
+
+    data[pos] = e;
+    elements++;
+    success = true;
+  }
+
+  return success;
+}
+
+template class DinamicArray<int>;
+template class DinamicArray<std::string>;
+

@@ -24,6 +24,8 @@ class DinamicArray{
   DinamicArray<T>& operator=(const DinamicArray<T>& original);
   void push (T e);
   void boost(int size);
+  bool insert(T e, int pos);
 };
 
 #endif
+
