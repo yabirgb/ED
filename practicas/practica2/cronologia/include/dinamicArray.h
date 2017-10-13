@@ -23,9 +23,13 @@ class DinamicArray{
   const T& operator [] (int i) const;
   DinamicArray<T>& operator=(const DinamicArray<T>& original);
   void push (T e);
-  void boost(int size);
+  void boost();
   bool insert(T e, int pos);
 };
 
+
+#include "dinamicArray.cpp"
 #endif
+
+
 
