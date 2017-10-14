@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include "chronology.h"
 
 using namespace std;
@@ -38,4 +39,19 @@ int main(){
     cout << "Position of 2001: " << pos << endl;
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
+
+    string nombre = "/home/yabir/Documentos/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
+
+    ifstream f (nombre);
+    if (!f){
+      cout<<"No puedo abrir el fichero "<< nombre <<endl;
+      return 0;
+    }
+
+    Chronology mi_cronologia;
+    f>>mi_cronologia; //Cargamos en memoria la cronología.
+
+    cout << "Primer elemento: " << mi_cronologia[0].getYear() << endl;
+    cout << "Segundo elemento: " << mi_cronologia[1].getYear() << endl;
+    cout << "Segundo elemento: " << mi_cronologia[10][0] << endl;
 }

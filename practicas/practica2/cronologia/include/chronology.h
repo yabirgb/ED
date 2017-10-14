@@ -23,7 +23,7 @@ class Chronology{
   void operator+=(const Chronology & f);
   int findByYear(int year);
 
-  friend std::istream& operator >> (std::istream& is, HistoricDate &);
+  friend std::istream& operator >> (std::istream& is, Chronology &);
   //friend ostream& operator << (istream& os, const FechaHistorica &f);
 
 };

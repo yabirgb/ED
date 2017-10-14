@@ -2,6 +2,8 @@
 #include "dinamicArray.h"
 #include "chronology.h"
 
+#include <sstream>
+
 Chronology::Chronology(){}
 
 int Chronology::getAmount() const{
@@ -63,5 +65,24 @@ int Chronology::findByYear(int y){
     return mid;
   else
     return -1;
+
+}
+
+std::istream& operator>> (std::istream& is, Chronology& f){
+
+  while( is.good() )
+  {
+    std::string input;
+    HistoricDate nuevo;
+    getline(is, input, '\n');
+
+    std::istringstream c(input);
+
+    c >> nuevo;
+
+    f.insertYear(nuevo);
+  }
+
+  return is;
 
 }
