@@ -1,28 +1,28 @@
 #include "historicDate.h"
+#include "dinamicArray.h"
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
+#include <string>
 
-HistoricDate::HistoricDate():year(0), separator(""){}
+HistoricDate::HistoricDate(): separator('#'),year(0){}
 
 HistoricDate::~HistoricDate(){
-
   year = 0;
-  ~events;
-
 }
 
-HistoricDate::HistoricDate(int y, DianamicArray<std::string> * e, std::string spacer){
+HistoricDate::HistoricDate(int y, DinamicArray <std::string> & e, char spacer){
   year = y;
   events = e;
   separator = spacer;
 }
 
 std::string HistoricDate::operator [] (int i){
-  return events[i] 
+  return events[i];
 }
 
 const std::string HistoricDate::operator [] (int i) const{
-  return events[i] 
+  return events[i];
 }
 
 int HistoricDate::getYear() const{
@@ -30,22 +30,39 @@ int HistoricDate::getYear() const{
 }
 
 int HistoricDate::getAmount() const{
-  return events.used()
+  return events.used();
 }
 
-void HistoricDate::pushEvent(string nombre){
+char HistoricDate::getSeparator(){
+  return separator;
+}
+
+void HistoricDate::pushEvent(std::string nombre){
   events.push(nombre);
 }
 
-friend istream& HistoricDate::operator >> (istream& is, FechaHistorica &f){
+void HistoricDate::setYear(int y){
+  year = y;
+}
 
-  std::sting cadena;
-  std::getline(is, cadena, separator);
-  year = stoi(cadena);
+std::istream& operator>> (std::istream& is, HistoricDate& f){
 
-  while(!is.eof()){
-    
+  std::string year;
+  char sep;
+  int year_save;
+  sep = f.getSeparator();
+  getline(is, year, sep);
+  year_save = std::stoi (year);
+
+
+  f.setYear(year_save);
+  while( is.good() )
+  {
+      std::string substr;
+      getline( is, substr,'#');
+      f.pushEvent( substr );
   }
-  
+
+  return is;
 
 }
