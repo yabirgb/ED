@@ -5,12 +5,12 @@ LIB = lib
 BIN = bin
 TST = test
 CXX = g++
-CPPFLAGS = -Wall -g  -I$(INC) -c
+CPPFLAGS = -std=c++11 -Wall -g  -I$(INC) -c
 
 
 #all: $(BIN)/pruebacronologia
 
-test: $(BIN)/test
+test: $(BIN)/testDinamic $(BIN)/testHistoric
 # ************ Generación de documentación ******************
 documentacion:
 	doxygen doc/doxys/Doxyfile
@@ -19,18 +19,27 @@ documentacion:
 #$(BIN)/pruebacronologia:
 
 #$(OBJ)/Darray.o : $(SRC)/dinamicArray.cpp $(INC)/dinamicArray.h  $(INC)/historicDate.h
-#	$(CXX) $(CPPFLAGS) -o $(OBJ)/Darray.o $(SRC)/dinamicArray.cpp 
+#	$(CXX) $(CPPFLAGS) -o $(OBJ)/Darray.o $(SRC)/dinamicArray.cpp
+
+$(OBJ)/historicDate.o : $(INC)/historicDate.h $(INC)/dinamicArray.h $(SRC)/historicDate.cpp
+	$(CXX) $(CPPFLAGS) -I./$(INC) -c -o $(OBJ)/historicDate.o $(SRC)/historicDate.cpp
 
 
 # ************ Tests ***************
 
 
-$(OBJ)/test.o : $(TST)/test.cpp $(INC)/dinamicArray.h 
-	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/test.o $(TST)/test.cpp
+$(OBJ)/testDinamic.o : $(TST)/testDinamic.cpp $(INC)/dinamicArray.h
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/testDinamic.o $(TST)/testDinamic.cpp
+
+$(BIN)/testDinamic : $(OBJ)/testDinamic.o
+	$(CXX) -o $(BIN)/testDinamic $(OBJ)/testDinamic.o
 
 
-$(BIN)/test : $(OBJ)/test.o 
-	$(CXX) -o $(BIN)/test $(OBJ)/test.o   
+$(OBJ)/testHistoric.o : $(TST)/testHistoric.cpp $(INC)/dinamicArray.h $(INC)/historicDate.h
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/testHistoric.o $(TST)/testHistoric.cpp
+
+$(BIN)/testHistoric : $(OBJ)/testHistoric.o $(OBJ)/historicDate.o
+	$(CXX) -o $(BIN)/testHistoric $(OBJ)/testHistoric.o $(OBJ)/historicDate.o
 
 
 # ************ Limpieza ************
