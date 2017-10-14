@@ -3,7 +3,7 @@
 
 
 template<class T>
-DinamicArray<T>::DinamicArray(): elements(0), max_elements(0), data(0){}
+DinamicArray<T>::DinamicArray():data(0), elements(0), max_elements(0) {}
 
 template<class T>
 DinamicArray<T>::DinamicArray(int n):elements(0){
@@ -33,10 +33,10 @@ DinamicArray<T>::~DinamicArray(){
 
 template<class T>
 void DinamicArray<T>::destroy(){
-  
+
   if(data != 0)
     delete[] data;
-  
+
   elements = 0;
   max_elements = 0;
 }
@@ -56,14 +56,19 @@ template<class T>
 T& DinamicArray<T>::operator [] (int i){
   if(i < size())
     return data[i];
+  else{
+    return data[0];
+  }
 }
 
 template<class T>
 const T& DinamicArray<T>::operator [] (int i) const{
   if(i < size())
     return data[i];
+  else{
+    return data[0];
+  }
 }
-
 
 template<class T>
 DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray<T>& original){
@@ -79,6 +84,8 @@ DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray<T>& original){
   for (int i = 0; i < used(); i++)
     data[i] = original[i];
 
+  return *this;
+
 }
 
 
@@ -86,7 +93,12 @@ DinamicArray<T>& DinamicArray<T>::operator=(const DinamicArray<T>& original){
 template <class T>
 void DinamicArray<T>::boost(){
 
-  int newSize = size() * 2;
+  int newSize;
+  if (size() > 0)
+    newSize = size() * 2;
+  else
+    newSize = 2;
+
   T* aux = new T[newSize];
   for(int i=0; i < used(); i++)
     aux[i] = data[i];
@@ -94,14 +106,14 @@ void DinamicArray<T>::boost(){
   delete[] data;
   max_elements = newSize;
   data = aux;
-  
+
 }
 
 template <class T>
 void DinamicArray<T>::push (T e){
   if(used() == size())
     boost();
-    
+
    data[used()] = e;
    elements++;
 
@@ -112,7 +124,7 @@ template <class T>
 bool DinamicArray<T>::insert(T e, int pos){
 
   bool success = false;
-  
+
   if(pos >= 0){
     if(used() == size())
       boost();
@@ -127,5 +139,3 @@ bool DinamicArray<T>::insert(T e, int pos){
 
   return success;
 }
-
-
