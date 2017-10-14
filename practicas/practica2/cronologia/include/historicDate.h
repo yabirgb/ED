@@ -30,7 +30,6 @@ class HistoricDate{
   void pushEvent(std::string nombre);
   void operator+=(const HistoricDate & f);
 
-  //const string * getEventos() const;
 
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
   //friend ostream& operator << (istream& os, const FechaHistorica &f);
