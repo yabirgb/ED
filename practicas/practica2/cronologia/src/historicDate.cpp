@@ -66,3 +66,10 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
   return is;
 
 }
+
+void HistoricDate::operator+=(const HistoricDate &f){
+  if (f.getYear() == getYear()){
+    for(int i=0; i < getAmount(); i++)
+      pushEvent(f[i]);
+  }
+}
