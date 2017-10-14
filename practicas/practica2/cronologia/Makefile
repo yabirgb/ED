@@ -10,7 +10,7 @@ CPPFLAGS = -std=c++11 -Wall -g  -I$(INC) -c
 
 #all: $(BIN)/pruebacronologia
 
-test: $(BIN)/testDinamic $(BIN)/testHistoric
+test: $(BIN)/testDinamic $(BIN)/testChronology $(BIN)/testHistoric
 # ************ Generación de documentación ******************
 documentacion:
 	doxygen doc/doxys/Doxyfile
@@ -23,6 +23,9 @@ documentacion:
 
 $(OBJ)/historicDate.o : $(INC)/historicDate.h $(INC)/dinamicArray.h $(SRC)/historicDate.cpp
 	$(CXX) $(CPPFLAGS) -I./$(INC) -c -o $(OBJ)/historicDate.o $(SRC)/historicDate.cpp
+
+$(OBJ)/chronology.o : $(INC)/chronology.h $(INC)/historicDate.h $(INC)/dinamicArray.h $(SRC)/chronology.cpp
+	$(CXX) $(CPPFLAGS) -I./$(INC) -c -o $(OBJ)/chronology.o $(SRC)/chronology.cpp
 
 
 # ************ Tests ***************
@@ -41,6 +44,12 @@ $(OBJ)/testHistoric.o : $(TST)/testHistoric.cpp $(INC)/dinamicArray.h $(INC)/his
 $(BIN)/testHistoric : $(OBJ)/testHistoric.o $(OBJ)/historicDate.o
 	$(CXX) -o $(BIN)/testHistoric $(OBJ)/testHistoric.o $(OBJ)/historicDate.o
 
+
+$(OBJ)/testChronology.o : $(TST)/testChronology.cpp $(INC)/dinamicArray.h $(INC)/historicDate.h $(INC)/chronology.h
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/testChronology.o $(TST)/testChronology.cpp
+
+$(BIN)/testChronology : $(OBJ)/testChronology.o $(OBJ)/chronology.o $(OBJ)/historicDate.o
+	$(CXX) -o $(BIN)/testChronology $(OBJ)/testChronology.o $(OBJ)/chronology.o $(OBJ)/historicDate.o
 
 # ************ Limpieza ************
 clean :
