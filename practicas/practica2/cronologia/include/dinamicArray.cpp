@@ -94,6 +94,7 @@ template <class T>
 void DinamicArray<T>::boost(){
 
   int newSize;
+  //If size == 0 increase it to 2
   if (size() > 0)
     newSize = size() * 2;
   else
@@ -125,17 +126,21 @@ bool DinamicArray<T>::insert(T e, int pos){
 
   bool success = false;
 
-  if(pos >= 0){
+  if(pos >= 0 && pos < used()){
     if(used() == size())
       boost();
 
-    for(int i= used() + 1; i > pos; i--)
+    for(int i= used(); i > pos; i--)
       data[i] = data[i-1];
 
     data[pos] = e;
     elements++;
     success = true;
   }
+  else{
+    push(e);
+  }
+
 
   return success;
 }
