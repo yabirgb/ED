@@ -4,14 +4,13 @@
 #include <iostream>
 #include "dinamicArray.h"
 
-using namespace std;
-
 class HistoricDate{
 
  private:
 
+  std::string separator;
   int year;
-  DinamicArray<string> *events;
+  DinamicArray<std::string> events;
 
   
  public:
@@ -20,15 +19,17 @@ class HistoricDate{
 
   ~HistoricDate();
   
-  HistoricDate(int y,  DinamicArray<string> * e);
-
-  int getDate() const;
+  HistoricDate(int y,  DinamicArray<string> * e, string separator);
+  std::string operator [] (int i);
+  const std::string operator [] (int i) const;
+  int getYear() const;
+  int getAmount() const;
   
   void operator+=(const FechaHistorica & f);
   
   //const string * getEventos() const;
   
-  //friend istream& operator >> (istream& is, FechaHistorica &f);
+  friend istream& operator >> (istream& is, FechaHistorica &f);
   //friend ostream& operator << (istream& os, const FechaHistorica &f);
 
 };
