@@ -73,3 +73,15 @@ void HistoricDate::operator+=(const HistoricDate &f){
       pushEvent(f[i]);
   }
 }
+
+bool HistoricDate::contains(std::string substring){
+  for(int i=0; i < getAmount(); i++){
+    std::string event = events[i];
+    std::size_t found = event.find(substring);
+    if(found!=std::string::npos)
+      return true;
+  }
+
+  return false;
+
+}

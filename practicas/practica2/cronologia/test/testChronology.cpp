@@ -54,4 +54,19 @@ int main(){
     cout << "Primer elemento: " << mi_cronologia[0].getYear() << endl;
     cout << "Segundo elemento: " << mi_cronologia[1].getYear() << endl;
     cout << "Segundo elemento: " << mi_cronologia[10][0] << endl;
+
+    Chronology subchronology = mi_cronologia.split(1910, 2020);
+
+    for(int i =0; i < subchronology.getAmount(); i++){
+      cout << "SUB - " << subchronology[i].getYear() << endl;
+    }
+
+    Chronology films;
+
+    films = mi_cronologia.containing("Wars");
+
+    for(int i =0; i < films.getAmount(); i++){
+      cout << "Wars - " << films[i].getYear() << endl;
+    }
+
 }

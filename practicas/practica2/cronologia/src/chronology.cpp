@@ -86,3 +86,28 @@ std::istream& operator>> (std::istream& is, Chronology& f){
   return is;
 
 }
+
+Chronology Chronology::split(int low, int high){
+  Chronology output;
+
+  for(int i = 0; i < getAmount(); i++){
+    //We dont make a binary search because the low and high years has no reason
+    //to be in the Chronology.
+    if(years[i].getYear() >= low && years[i].getYear() <= high){
+      output.insertYear(years[i]);
+    }
+  }
+
+  return output;
+
+}
+
+Chronology Chronology::containing(std::string match){
+  Chronology output;
+  for(int i =0; i < getAmount(); i++){
+    if(years[i].contains(match))
+      output.insertYear(years[i]);
+  }
+
+  return output;
+}
