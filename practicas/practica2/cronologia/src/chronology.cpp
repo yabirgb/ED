@@ -3,6 +3,7 @@
 #include "chronology.h"
 
 #include <sstream>
+#include <assert.h>
 
 Chronology::Chronology(){}
 
@@ -32,10 +33,12 @@ void Chronology::insertYear(HistoricDate year){
 }
 
 HistoricDate Chronology::operator [] (int i){
+  assert(i >= 0 && i < years.used() && "Invalid memory access");
   return years[i];
 }
 
 const HistoricDate Chronology::operator [] (int i) const{
+  assert(i >= 0 && i < years.used() && "Invalid memory access");
   return years[i];
 }
 
