@@ -3,7 +3,7 @@
 
 
 template<class T>
-DinamicArray<T>::DinamicArray(int n = 0):elements(0){
+DinamicArray<T>::DinamicArray(int n):elements(0){
   data = new T [n];
   max_elements = n;
 }
