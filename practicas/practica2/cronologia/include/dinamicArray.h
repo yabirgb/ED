@@ -104,8 +104,8 @@ class DinamicArray{
   const T& operator [] (int i) const;
   DinamicArray<T>& operator=(const DinamicArray<T>& original);
   /**
-   * @brief Añade un elemento a @c data.
-   * @param Añade un elemento del tipo @c T al final de @c data.
+   * @brief Añade un elemento a @c data con la característica de añadirlo al final.
+   * @param @c DinamicArray de tipo @c T
    * @see insert()
    */
   void push (T e);
@@ -114,8 +114,8 @@ class DinamicArray{
    */
   void boost();
   /**
-   * @brief Añade un elemento a @c data.
-   * @param Añade un elemento del tipo @c T en la posición @c pos de @c data.
+   * @brief Añade un elemento a @c data en la posición @c pos.
+   * @param Un elemento de tipo @ T y un entero de representando la posición.
    * @see insert()
    */
   bool insert(T e, int pos);
