@@ -31,16 +31,16 @@ int main(){
   cout << "Year: " << timeline[1].getYear() << endl;
 
 
-    int pos, pos2, pos3;
+  int pos, pos2, pos3;
 
-    pos = timeline.findByYear(2001);
+  pos = timeline.findByYear(2001);
     pos2 = timeline.findByYear(2002);
     pos3 = timeline.findByYear(2003);
     cout << "Position of 2001: " << pos << endl;
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
 
-    string nombre = "/home/yabir/Documents/DGIIM/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
+    string nombre = "/home/yabir/Documents/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
 
     ifstream f (nombre);
     if (!f){
@@ -56,12 +56,12 @@ int main(){
     cout << "Segundo elemento: " << mi_cronologia[10][0] << endl;
 
     Chronology subchronology = mi_cronologia.split(1990, 2020);
-    
+
     for(int i =0; i < subchronology.getAmount(); i++){
       cout << "SUB - " << subchronology[i].getYear() << endl;
     }
 
-    Chronology films, films2;
+    Chronology films, films2, films3;
 
     films = mi_cronologia.containing("Wars");
 
@@ -72,16 +72,24 @@ int main(){
     films2 = mi_cronologia.containing("Blind");
 
     for(int i =0; i < films2.getAmount(); i++){
-      cout << "Blind - " << films[i].getYear() << endl;
+      cout << "Blind - " << films2[i].getYear() << endl;
     }
 
     cout << "==========" << endl;
-    cout << "Before amount/size: " << films2.getAmount() << endl; 
+    cout << "Before amount/size: " << films2.getAmount() << endl;
     cout << "Adition of chronologies: " << endl;
     films2 += films;
-    cout << "New amount/size: " << films2.getAmount() << endl; 
+    cout << "New amount/size: " << films2.getAmount() << endl;
     for(int i =0; i < films2.getAmount(); i++){
-      cout << "Year - " << films[i].getYear() << endl;
+      cout << "Year - " << films2[i].getYear() << endl;
+    }
+
+    cout << "Test overwrite: " << endl;
+    films3 += films2;
+    for(int i =0; i < films3.getAmount(); i++){
+      for(int j =0; j < films3[i].getAmount(); j++){
+        cout << "Year - " << films3[i].getYear() << " - " << films3[i][j] << endl;
+      }
     }
 
 }
