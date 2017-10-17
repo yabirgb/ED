@@ -19,7 +19,10 @@ void Chronology::insertYear(HistoricDate year){
   else{
     int pos = 0;
     do{
-      if(years[pos].getYear() > year.getYear()){
+      if(years[pos].getYear() == year.getYear()){
+	years[pos] += year;
+	inserted = true; //In this case we have merged
+      }else if(years[pos].getYear() > year.getYear()){
         years.insert(year, pos);
         inserted = true;
       }
@@ -42,14 +45,12 @@ const HistoricDate Chronology::operator [] (int i) const{
   return years[i];
 }
 
-/*
+
 void Chronology::operator+=(const Chronology &f){
-  if (f.getYear() == getYear()){
-    for(int i=0; i < used(); i++)
-      pushEvent(f[i]);
+  for(int i=0; i < f.getAmount(); i++){
+      insertYear(f[i]);
   }
 }
-*/
 
 int Chronology::findByYear(int y){
   int start=0, end=getAmount()-1;

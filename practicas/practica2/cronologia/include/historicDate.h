@@ -28,8 +28,8 @@ class HistoricDate{
   char getSeparator();
   void setYear(int y);
   void pushEvent(std::string nombre);
-  void operator+=(const HistoricDate & f);
   bool contains(std::string);
+  void operator+=(const HistoricDate &);
 
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
   //friend ostream& operator << (istream& os, const FechaHistorica &f);

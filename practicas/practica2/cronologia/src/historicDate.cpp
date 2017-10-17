@@ -17,6 +17,14 @@ HistoricDate::HistoricDate(int y, DinamicArray <std::string> & e, char spacer){
   separator = spacer;
 }
 
+void HistoricDate::operator += (const HistoricDate & origin){
+  if (getYear() == origin.getYear()){
+    for(int i = 0; i < origin.getAmount(); i++){
+      pushEvent(origin[i]);
+    }
+  }
+}
+
 std::string HistoricDate::operator [] (int i){
   return events[i];
 }
@@ -65,13 +73,6 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
   return is;
 
-}
-
-void HistoricDate::operator+=(const HistoricDate &f){
-  if (f.getYear() == getYear()){
-    for(int i=0; i < getAmount(); i++)
-      pushEvent(f[i]);
-  }
 }
 
 bool HistoricDate::contains(std::string substring){

@@ -40,7 +40,7 @@ int main(){
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
 
-    string nombre = "/home/yabir/Documentos/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
+    string nombre = "/home/yabir/Documents/DGIIM/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
 
     ifstream f (nombre);
     if (!f){
@@ -55,18 +55,33 @@ int main(){
     cout << "Segundo elemento: " << mi_cronologia[1].getYear() << endl;
     cout << "Segundo elemento: " << mi_cronologia[10][0] << endl;
 
-    Chronology subchronology = mi_cronologia.split(1910, 2020);
-
+    Chronology subchronology = mi_cronologia.split(1990, 2020);
+    
     for(int i =0; i < subchronology.getAmount(); i++){
       cout << "SUB - " << subchronology[i].getYear() << endl;
     }
 
-    Chronology films;
+    Chronology films, films2;
 
     films = mi_cronologia.containing("Wars");
 
     for(int i =0; i < films.getAmount(); i++){
       cout << "Wars - " << films[i].getYear() << endl;
+    }
+
+    films2 = mi_cronologia.containing("Blind");
+
+    for(int i =0; i < films2.getAmount(); i++){
+      cout << "Blind - " << films[i].getYear() << endl;
+    }
+
+    cout << "==========" << endl;
+    cout << "Before amount/size: " << films2.getAmount() << endl; 
+    cout << "Adition of chronologies: " << endl;
+    films2 += films;
+    cout << "New amount/size: " << films2.getAmount() << endl; 
+    for(int i =0; i < films2.getAmount(); i++){
+      cout << "Year - " << films[i].getYear() << endl;
     }
 
 }
