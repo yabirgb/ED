@@ -20,13 +20,12 @@ void Chronology::insertYear(HistoricDate year){
     int pos = 0;
     do{
       if(years[pos].getYear() == year.getYear()){
-	years[pos] += year;
-	inserted = true; //In this case we have merged
+        years[pos] += year;
+        inserted = true; //In this case we have merged
       }else if(years[pos].getYear() > year.getYear()){
         years.insert(year, pos);
         inserted = true;
       }
-
       pos++;
     }while(!inserted && pos < years.used());
 
