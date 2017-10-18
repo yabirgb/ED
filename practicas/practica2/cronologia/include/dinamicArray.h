@@ -77,7 +77,7 @@ class DinamicArray{
   // ------------------ Destructor ------------------
   ~DinamicArray<T>();
 
-  // ------------------ Metodos ---------------------
+  // ------------------ Métodos ---------------------
   /**
    * @brief Numero de elementos que se encuentran en @c data
    * @return Entero que representa los elementos.
