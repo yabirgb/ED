@@ -36,7 +36,7 @@ class HistoricDate{
   DinamicArray<std::string> events; /**< Vector que almacena los hechos ocurridos */
 
 
- public:+
+ public:
  // ---------------  Constructores ----------------
  /**
   * @brief Constructor por defecto
