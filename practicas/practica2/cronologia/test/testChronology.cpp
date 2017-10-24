@@ -19,14 +19,14 @@ int main(){
   b >> test2;
 
   cout << "Year: " << test.getYear() << endl;
-  cout << "First: " << test[0] << endl;
-  cout << "Second: " << test[1] << endl;
+  //cout << "First: " << test[0] << endl;
+  //cout << "Second: " << test[1] << endl;
 
   timeline.insertYear(test);
   cout << "Inserted test 1" << endl;
   cout << "Amount: " << timeline.getAmount() << endl;
   timeline.insertYear(test2);
-
+  cout << "Inseted test2" << endl;
   cout << "Year: " << timeline[0].getYear() << endl;
   cout << "Year: " << timeline[1].getYear() << endl;
 
@@ -40,7 +40,7 @@ int main(){
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
 
-    string nombre = "/home/yabir/Documents/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
+    string nombre = "/home/yabir/Documents/DGIIM/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
 
     ifstream f (nombre);
     if (!f){
