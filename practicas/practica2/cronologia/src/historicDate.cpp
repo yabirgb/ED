@@ -26,10 +26,14 @@ void HistoricDate::operator += (const HistoricDate & origin){
 }
 
 std::string HistoricDate::operator [] (int i){
+  if(i < 0 || i > events.used())
+    throw std::out_of_range("Error in access to HistoricDate");
   return events[i];
 }
 
 const std::string HistoricDate::operator [] (int i) const{
+  if(i < 0 || i > events.used())
+    throw std::out_of_range("Error in access to HistoricDate");
   return events[i];
 }
 

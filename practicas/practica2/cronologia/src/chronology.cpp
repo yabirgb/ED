@@ -35,12 +35,14 @@ void Chronology::insertYear(HistoricDate year){
 }
 
 HistoricDate Chronology::operator [] (int i){
-  assert(i >= 0 && i < years.used() && "Invalid memory access");
+  if(i < 0 || i > years.used())
+    throw std::out_of_range("Error in access to Chronology");
   return years[i];
 }
 
 const HistoricDate Chronology::operator [] (int i) const{
-  assert(i >= 0 && i < years.used() && "Invalid memory access");
+  if(i < 0 || i > years.used())
+    throw std::out_of_range("Error in access to Chronology");
   return years[i];
 }
 
@@ -78,12 +80,13 @@ std::istream& operator>> (std::istream& is, Chronology& f){
     std::string input;
     HistoricDate nuevo;
     getline(is, input, '\n');
+    if (input.length() != 0) {
+      std::istringstream c(input);
 
-    std::istringstream c(input);
+      c >> nuevo;
 
-    c >> nuevo;
-
-    f.insertYear(nuevo);
+      f.insertYear(nuevo);
+    }
   }
 
   return is;
