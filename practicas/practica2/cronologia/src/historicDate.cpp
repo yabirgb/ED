@@ -79,6 +79,14 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
 }
 
+std::ostream& operator << (std::ostream& os, const HistoricDate &f){
+
+  for(int i =0; i < f.getAmount(); i++)
+    os << f[i];
+
+  return os;
+}
+
 bool HistoricDate::contains(std::string substring){
   for(int i=0; i < getAmount(); i++){
     std::string event = events[i];

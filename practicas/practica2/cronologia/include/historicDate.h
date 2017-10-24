@@ -94,7 +94,7 @@ class HistoricDate{
   void operator+=(const HistoricDate &);
 
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
-  //friend ostream& operator << (istream& os, const FechaHistorica &f);
+  friend std::ostream& operator << (std::istream& os, const HistoricDate &f);
 
 };
 #endif

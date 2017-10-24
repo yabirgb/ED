@@ -93,6 +93,14 @@ std::istream& operator>> (std::istream& is, Chronology& f){
 
 }
 
+std::ostream& operator << (std::ostream& os, const Chronology &f){
+
+  for(int i =0; i < f.getAmount(); i++)
+    os << f[i];
+
+  return os;
+}
+
 Chronology Chronology::split(int low, int high){
   Chronology output;
 
