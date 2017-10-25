@@ -62,16 +62,17 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
   std::string year;
   char sep;
   int year_save;
+
   sep = f.getSeparator();
   getline(is, year, sep);
+
   year_save = std::stoi (year);
-
-
   f.setYear(year_save);
+
   while( is.good() )
   {
       std::string substr;
-      getline( is, substr,'#');
+      getline( is, substr,sep);
       f.pushEvent( substr );
   }
 
@@ -79,10 +80,19 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
 }
 
-std::ostream& operator << (std::ostream& os, const HistoricDate &f){
+std::ostream& operator<< (std::ostream& os, const HistoricDate &f){
 
-  for(int i =0; i < f.getAmount(); i++)
-    os << f[i];
+  os << f.getYear() ;
+  std::string out = "";
+  for(int i =0; i < f.getAmount(); i++){
+    out.append("#");
+    out.append(f[i]);
+
+    std::cout << "--> " << f[i] << "[]" << std::endl << out << std::endl;
+  }
+
+  os << out;
+  std::cout << "--..--- " << std::endl;
 
   return os;
 }
