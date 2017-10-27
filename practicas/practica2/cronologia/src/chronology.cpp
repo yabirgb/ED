@@ -75,28 +75,27 @@ int Chronology::findByYear(int y){
 
 std::istream& operator>> (std::istream& is, Chronology& f){
 
-  while( is.good() )
+  std::string input;
+  getline(is, input, '\n');
+
+  while( is.eof() == 0 )
   {
-    std::string input;
+    std::istringstream c(input);
     HistoricDate nuevo;
+    c >> nuevo;
+    f.insertYear(nuevo);
     getline(is, input, '\n');
-    if (input.length() != 0) {
-      std::istringstream c(input);
 
-      c >> nuevo;
-
-      f.insertYear(nuevo);
-    }
   }
 
   return is;
 
 }
 
-std::ostream& operator << (std::ostream& os, const Chronology &f){
+std::ostream& operator<< (std::ostream& os, const Chronology &f){
 
   for(int i =0; i < f.getAmount(); i++)
-    os << f[i];
+    os << f[i] << std::endl;
 
   return os;
 }

@@ -40,20 +40,38 @@ int main(){
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
 
-    string nombre = "/home/yabir/Documents/DGIIM/ED/practicas/practica2/cronologia/datos/timeline_movies.txt";
+    string nombre = "/home/yabir/Documents/ED/practicas/practica2/cronologia/datos/test.txt";
+    string nombre2 = "/home/yabir/Documents/ED/practicas/practica2/cronologia/datos/test2.txt";
 
     ifstream f (nombre);
+    ifstream g (nombre2);
+
     if (!f){
       cout<<"No puedo abrir el fichero "<< nombre <<endl;
       return 0;
     }
 
+    Chronology cien, algs;
+
+    f >> cien;
+    g >> algs;
+
+    cout << cien << endl;
+    cout << "----------!" << endl;
+    cout << algs << endl;
+    cout << "----------!" << endl;
+    cien += algs;
+
+    cout << cien;
+    cout << "----------!" << endl;
+    cout << cien[1][0] << endl;
+    cout << cien[1][1] << endl;
+
+
     Chronology mi_cronologia;
     f>>mi_cronologia; //Cargamos en memoria la cronología.
 
-    cout << "Primer elemento: " << mi_cronologia[0].getYear() << endl;
-    cout << "Segundo elemento: " << mi_cronologia[1].getYear() << endl;
-    cout << "Segundo elemento: " << mi_cronologia[10][0] << endl;
+    cout << mi_cronologia;
 
     Chronology subchronology = mi_cronologia.split(1990, 2020);
 
@@ -92,4 +110,7 @@ int main(){
       }
     }
 
+    cout << "--------" << endl;
+
+    cout << films3;
 }

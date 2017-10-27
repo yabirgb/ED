@@ -117,7 +117,7 @@ class Chronology{
    */
   Chronology containing(std::string);
   friend std::istream& operator >> (std::istream& is, Chronology &);
-  friend std::ostream& operator << (std::istream& os, const Chronology &f);
+  friend std::ostream& operator << (std::ostream& os, const Chronology &f);
 
 };
 #endif
