@@ -82,10 +82,13 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
 std::ostream& operator<< (std::ostream& os, const HistoricDate &f){
 
-  os << f.getYear() << "\n";
-  for (int i=0; i<f.getAmount(); i++){
-    os << "#" << f[i] << "\n";
-  }
+  if(getAmount > 0){
+    os << f.getYear() << "\n";
+    for (int i=0; i<f.getAmount(); i++){
+      os << "#" << f[i] << "\n";
+    }
+  }else
+    os << "Empty HistoricDate" << endl;
 
 return os;
 }
