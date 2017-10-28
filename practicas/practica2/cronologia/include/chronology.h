@@ -94,7 +94,7 @@ class Chronology{
    * devuelve -1.
    */
 
-  int findByYear(int year);
+  int posByYear(int year);
 
   /**
    * @brief Conseguir una sub-cronología a partir de otra seleccionando
@@ -118,6 +118,9 @@ class Chronology{
   Chronology containing(std::string);
   friend std::istream& operator >> (std::istream& is, Chronology &);
   friend std::ostream& operator << (std::ostream& os, const Chronology &f);
+
+
+  HistoricDate find(int year);
 
 };
 #endif

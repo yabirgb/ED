@@ -53,7 +53,7 @@ void Chronology::operator+=(const Chronology &f){
   }
 }
 
-int Chronology::findByYear(int y){
+int Chronology::posByYear(int y){
   int start=0, end=getAmount()-1;
   int mid=(start+end)/2;
 
@@ -70,6 +70,18 @@ int Chronology::findByYear(int y){
     return mid;
   else
     return -1;
+
+}
+
+HistoricDate Chronology::find(int year){
+  //If not found we return a empty HistoricDate;
+  HistoricDate result;
+  int y = posByYear(year);
+
+  if(y != -1)
+    return events[i];
+  else
+    return result;
 
 }
 

@@ -82,19 +82,15 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
 std::ostream& operator<< (std::ostream& os, const HistoricDate &f){
 
-  os << f.getYear() ;
-  std::string out = "";
-  for(int i =0; i < f.getAmount(); i++){
-    out.append("#");
-    out.append(f[i]);
+  if(getAmount > 0){
+    os << f.getYear() << "\n";
+    for (int i=0; i<f.getAmount(); i++){
+      os << "#" << f[i] << "\n";
+    }
+  }else
+    os << "Empty HistoricDate" << endl;
 
-    std::cout << "--> " << f[i] << "[]" << std::endl << out << std::endl;
-  }
-
-  os << out;
-  std::cout << "--..--- " << std::endl;
-
-  return os;
+return os;
 }
 
 bool HistoricDate::contains(std::string substring){
