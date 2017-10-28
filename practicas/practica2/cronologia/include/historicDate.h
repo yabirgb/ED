@@ -88,9 +88,33 @@ class HistoricDate{
    * que usa el objeto.
    */
   char getSeparator();
+
+  /**
+   * @brief Establecer el dato miembro año según el parámetro dado como argumento
+   * @param Un dato de tipo @c int que representa el nuevo año del objeto
+   */
   void setYear(int y);
+
+  /**
+   * @brief Añede un elemento al vector de eventos representando un evento que
+   * a sucedido en dicho año.
+   * @param Un dato de tipo @c string que contiene el evento que se quiere añadir.
+   */
   void pushEvent(std::string nombre);
+
+  /**
+   * @brief Determinan si un cierto string se encuentra como evento en dicho año.
+   * @param Un dato de tipo @c string que representa el nuevo evento que se quiere
+   * añadir como evento a la fecha historica.
+   */
   bool contains(std::string);
+
+  /**
+   * @brief Combinar dos fechas históricas de modo que si ambas tienen en el
+   * mismo año se combinan los eventos ocurridos.
+   * @param Un objeto de tipo @c HistoricDate que permanecerá intacto y será
+   * aquel del que se extraigan los nuevos eventos para ser combinados.
+   */
   void operator+=(const HistoricDate &);
 
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
