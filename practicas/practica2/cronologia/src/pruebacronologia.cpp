@@ -18,23 +18,41 @@ int main(int argc, char * argv[]){
     return 0;
    }
 
-   Cronologia mi_cronologia;
+   Chronology mi_cronologia;
    f>>mi_cronologia; //Cargamos en memoria la cronología.
 
 
    /* Exhibir aquí la funcionalidad programada para el TDA Cronologia / TDA FechaHistorica */
-   Chronology test;
 
-   f >> test;
+   // Test busqueda por año
+   int year, position;
 
-   int anio, position;
-
-   cout << "Introduzca un año para conseguir los eventos acontecidos en el:";
-   cin >> anio;
+   cout << "Introduzca un año para conseguir los eventos acontecidos en él: ";
+   cin >> year;
 
    cout << "Eventos correspondientes a dicha fecha: " << endl;
-   cout << test.find(year);
+   cout << mi_cronologia.find(year);
 
+   //Cronologia de eventos con palabra;
+
+   string busqueda;
+   cout << "Introduzca una palabra clave para buscar: ";
+   cin >> busqueda;
+
+   cout << "Cronología de eventos corerspondiente a dicha fecha: " << endl;
+   cout << mi_cronologia.containing(busqueda);
+
+   // Subcronología entre fechas;
+
+   int start, end;
+
+   cout << "Introduzca fecha inferior para una obtener una subcronología: ";
+   cin >> start;
+
+   cout << endl << "Introduzca fecha superior: ";
+   cin >> end;
+
+   cout << mi_cronologia.split(start, end);
 
    // Algunas sugerencias:
    // - Obtener los eventos acaecidos en un año dado

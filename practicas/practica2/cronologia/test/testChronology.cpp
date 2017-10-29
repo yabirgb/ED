@@ -33,9 +33,9 @@ int main(){
 
   int pos, pos2, pos3;
 
-  pos = timeline.findByYear(2001);
-    pos2 = timeline.findByYear(2002);
-    pos3 = timeline.findByYear(2003);
+  pos = timeline.posByYear(2001);
+    pos2 = timeline.posByYear(2002);
+    pos3 = timeline.posByYear(2003);
     cout << "Position of 2001: " << pos << endl;
     cout << "Position of 2002: " << pos2 << endl;
     cout << "Position of 2003: " << pos3 << endl;
