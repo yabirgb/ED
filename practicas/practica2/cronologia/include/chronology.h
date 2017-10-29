@@ -36,12 +36,20 @@ class Chronology{
 
   DinamicArray<HistoricDate> years; /**< Array dinámico que representa una colección de años*/
 
+  void fixInterval(int &a, int&b);
  public:
    // ---------------  Constructores ----------------
    /**
     * @brief Constructor por defecto
     */
   Chronology();
+
+  /**
+    * @brief Constructor copia de la clase.
+    * @param original @c Chronology a copiar
+    */
+  Chronology(const Chronology &original);
+
   // ---------------  Métodos ----------------
   /**
    * @brief Acceso a una posición de memoria en modo escritura

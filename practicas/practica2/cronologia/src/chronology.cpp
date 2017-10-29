@@ -7,6 +7,12 @@
 
 Chronology::Chronology(){}
 
+Chronology::Chronology(const Chronology &original){
+  for(int i = 0; i < original.years.used(); i++){
+    insertYear(original[i]);
+  }
+}
+
 int Chronology::getAmount() const{
   return years.used();
 }
@@ -47,6 +53,16 @@ const HistoricDate Chronology::operator [] (int i) const{
 }
 
 
+HistoricDate& HistoricDate::operator=(const HistoricDate &original){
+
+  if(&original != this){
+
+    year = original.getYear();
+    events = original.events;
+  }
+  return *this;
+}
+
 void Chronology::operator+=(const Chronology &f){
   for(int i=0; i < f.getAmount(); i++){
       insertYear(f[i]);
@@ -79,7 +95,7 @@ HistoricDate Chronology::find(int year){
   int y = posByYear(year);
 
   if(y != -1)
-    return events[i];
+    return years[y];
   else
     return result;
 
@@ -114,7 +130,7 @@ std::ostream& operator<< (std::ostream& os, const Chronology &f){
 
 Chronology Chronology::split(int low, int high){
   Chronology output;
-
+  fixInterval(low,high);
   for(int i = 0; i < getAmount(); i++){
     //We dont make a binary search because the low and high years has no reason
     //to be in the Chronology.
@@ -135,4 +151,16 @@ Chronology Chronology::containing(std::string match){
   }
 
   return output;
+}
+//Auxiliar functions
+
+//Check wheter the interval [a,b] is well defined
+//Takes as args a = lower limit
+// b = upper limit
+void Chronology::fixInterval(int &a, int &b){
+  if (a > b){
+    int temp = a;
+    a = b;
+    b = temp;
+  }
 }
