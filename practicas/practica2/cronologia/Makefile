@@ -8,7 +8,7 @@ CXX = g++
 CPPFLAGS = -std=c++11 -Wall -g  -I$(INC) -c
 
 
-#all: $(BIN)/pruebacronologia
+all: $(BIN)/pruebacronologia
 
 test: $(BIN)/testDinamic $(BIN)/testChronology $(BIN)/testHistoric
 # ************ Generación de documentación ******************
@@ -16,7 +16,12 @@ documentacion:
 	doxygen doc/doxys/Doxyfile
 
 # ************ Compilación de módulos ************
-#$(BIN)/pruebacronologia:
+$(OBJ)/pruebacronologia.o : $(SRC)/pruebacronologia.cpp $(INC)/dinamicArray.h $(INC)/historicDate.h $(INC)/chronology.h
+	$(CXX) $(CPPFLAGS) -I./$(INC) -o $(OBJ)/pruebacronologia.o $(SRC)/pruebacronologia.cpp
+
+$(BIN)/pruebacronologia : $(OBJ)/pruebacronologia.o $(OBJ)/chronology.o $(OBJ)/historicDate.o
+	$(CXX) -o $(BIN)/pruebacronologia $(OBJ)/pruebacronologia.o $(OBJ)/chronology.o $(OBJ)/historicDate.o
+
 
 #$(OBJ)/Darray.o : $(SRC)/dinamicArray.cpp $(INC)/dinamicArray.h  $(INC)/historicDate.h
 #	$(CXX) $(CPPFLAGS) -o $(OBJ)/Darray.o $(SRC)/dinamicArray.cpp
