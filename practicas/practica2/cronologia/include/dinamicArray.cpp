@@ -10,20 +10,6 @@ DinamicArray<T>::DinamicArray(int n):elements(0){
 
 
 template<class T>
-DinamicArray<T>::DinamicArray(const DinamicArray<T>& original){
-
-  elements = original.used();
-  max_elements = original.size();
-
-  data = new T [max_elements];
-
-  for (int i = 0; i < used(); i++){
-    data[i] = original[i];
-  }
-
-}
-
-template<class T>
 DinamicArray<T>::~DinamicArray(){
   destroy();
 }
@@ -48,6 +34,24 @@ int DinamicArray<T>::used() const{
   return elements;
 }
 
+template<class T>
+int& DinamicArray<T>::used(){
+  return elements;
+}
+
+template<class T>
+DinamicArray<T>::DinamicArray(const DinamicArray<T>& original){
+
+  elements = original.used();
+  max_elements = original.size();
+
+  data = new T [max_elements];
+
+  for (int i = 0; i < used(); i++){
+    data[i] = original[i];
+  }
+
+}
 
 template<class T>
 T& DinamicArray<T>::operator [] (int i){

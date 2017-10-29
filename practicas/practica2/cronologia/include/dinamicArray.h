@@ -78,11 +78,26 @@ class DinamicArray{
   ~DinamicArray<T>();
 
   // ------------------ Métodos ---------------------
+
   /**
-   * @brief Numero de elementos que se encuentran en @c data
+  * @brief Operador de asignación de la clase
+  * @param original @c DinamicArray a copiar
+  * @return Referencia a this.
+  */
+  DinamicArray& operator=(const DinamicArray &original);
+
+
+  /**
+   * @brief Número de elementos que se encuentran en @c data
    * @return Entero que representa los elementos.
    */
   int used() const;
+
+  /**
+   * @brief Referencia al número de elementos que se encuentran en @c data
+   * @return Referencia a un tipo @c int que representa los elementos.
+   */
+  int& used();
 
   /**
    * @brief Capacidad máxima de @c data
@@ -102,7 +117,7 @@ class DinamicArray{
    * @return Referencia constante a un elemento de tipo @c T contenido en @c data
    */
   const T& operator [] (int i) const;
-  DinamicArray<T>& operator=(const DinamicArray<T>& original);
+
   /**
    * @brief Añade un elemento a @c data con la característica de añadirlo al final.
    * @param @c DinamicArray de tipo @c T
