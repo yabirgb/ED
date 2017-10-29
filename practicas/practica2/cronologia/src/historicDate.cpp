@@ -18,9 +18,20 @@ HistoricDate::HistoricDate(int y, DinamicArray <std::string> & e, char spacer){
 }
 
 void HistoricDate::operator += (const HistoricDate & origin){
-  if (getYear() == origin.getYear()){
-    for(int i = 0; i < origin.getAmount(); i++){
-      pushEvent(origin[i]);
+  if(&origin != this){
+    if (getYear() == origin.getYear()){
+
+      for(int i=0; i<origin.getAmount(); i++){
+        bool repeated = false;
+        for(int j=0; j<getAmount() && !repeated; j++) {
+          if(origin[i]==events[j])
+            repeated = true;
+        }
+
+        if(!repeated)
+          pushEvent(origin[i]);
+
+      }
     }
   }
 }
@@ -82,13 +93,13 @@ std::istream& operator>> (std::istream& is, HistoricDate& f){
 
 std::ostream& operator<< (std::ostream& os, const HistoricDate &f){
 
-  if(getAmount > 0){
+  if(f.getAmount() > 0){
     os << f.getYear() << "\n";
     for (int i=0; i<f.getAmount(); i++){
       os << "#" << f[i] << "\n";
     }
   }else
-    os << "Empty HistoricDate" << endl;
+    os << "Empty HistoricDate" << std::endl;
 
 return os;
 }

@@ -117,6 +117,12 @@ class HistoricDate{
    */
   void operator+=(const HistoricDate &);
 
+  /**
+  * @brief Sobrecarga del operador =
+  * @param original @c HistoricDate que se asigna al objeto implicito
+  */
+  HistoricDate& operator=(const HistoricDate &original);
+
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
   friend std::ostream& operator << (std::ostream& os, const HistoricDate &f);
 
