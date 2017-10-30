@@ -19,4 +19,5 @@ int main(){
   cout << "First: " << test[0] << endl;
   cout << "Second: " << test[1] << endl;
 
+  cout << test;
 }
