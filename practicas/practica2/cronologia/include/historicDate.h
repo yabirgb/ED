@@ -78,17 +78,18 @@ class HistoricDate{
 
   /**
    * @brief Información sobre el número de eventos almacenados.
-   * @return Un elemento de tipo @c int que representa la cantidad de eventos.
+   * @return Un elemento de tipo @c int que representa la cantidad de eventos que
+   * contiene la fecha histórica.
    */
   int getAmount() const;
 
   /**
-   * @brief Metodo para extraer el separador que admite la clase
+   * @brief Metodo para extraer el separador que usa la clase para realizar
+   * la entra de datos.
    * @return Un elemento de tipo @c char que representa el separador
    * que usa el objeto.
    */
   char getSeparator();
-
   /**
    * @brief Establecer el dato miembro año según el parámetro dado como argumento
    * @param Un dato de tipo @c int que representa el nuevo año del objeto
@@ -96,8 +97,8 @@ class HistoricDate{
   void setYear(int y);
 
   /**
-   * @brief Añede un elemento al vector de eventos representando un evento que
-   * a sucedido en dicho año.
+   * @brief Añade un elemento al vector de eventos representando un evento que
+   * ha sucedido en dicho año.
    * @param Un dato de tipo @c string que contiene el evento que se quiere añadir.
    */
   void pushEvent(std::string nombre);
@@ -106,6 +107,8 @@ class HistoricDate{
    * @brief Determinan si un cierto string se encuentra como evento en dicho año.
    * @param Un dato de tipo @c string que representa el nuevo evento que se quiere
    * añadir como evento a la fecha historica.
+   * @return Un tipo @c bool que cuando toma el valor true indica que se encuentra
+   * contenido en la fecha histórica.
    */
   bool contains(std::string);
 
@@ -123,7 +126,15 @@ class HistoricDate{
   */
   HistoricDate& operator=(const HistoricDate &original);
 
+
+  /**
+  * @brief Sobrecar del operador de entrada
+  */
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
+
+  /**
+  * @brief Sobrecar del operador de salida
+  */
   friend std::ostream& operator << (std::ostream& os, const HistoricDate &f);
 
 };

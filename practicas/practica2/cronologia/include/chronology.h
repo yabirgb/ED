@@ -94,7 +94,9 @@ class Chronology{
   void operator+=(const Chronology & f);
 
   /**
-   * @brief Determina si un año tiene representación en la cronología
+   * @brief Determina si un año tiene representación en la cronología. En caso
+   * de no estar devuelve -1 como respuesta. Si está, devuelve la posición en la
+   * cronología ordenada donde se encuentra.
    * @param Acepta un parámetro de tipo @c int que representa
    * el año que por el que se quiere buscar.
    * @return Devuelve un tipo @c int que representa la posición en el
@@ -103,6 +105,16 @@ class Chronology{
    */
 
   int posByYear(int year);
+
+  /**
+   * @brief Devuelve la fecha historíca asociada a una fecha en una cronología
+   * @param Acepta un parámetro de tipo @c int que representa
+   * el año que por el que se quiere buscar.
+   * @return Devuelve un objeto tipo @c HistoricDate que contiene los eventos
+   * ocurridos en la fecha que se pasa como argumento.
+   */
+
+  HistoricDate find(int year);
 
   /**
    * @brief Conseguir una sub-cronología a partir de otra seleccionando
@@ -120,15 +132,17 @@ class Chronology{
    * los años con eventos que contienen una palabara concreta.
    * @param Acepta un parámetro de tipo string que será la palabra
    * clave para realizar la búsqueda
-   * @return Devuelve un tipo @c Chronology con las fechas almacenando
-   * los resultados que coinciden con la búsqueda.
+   * @return Devuelve un tipo @c Chronology con las fechas que contienen
+   * en alguno de sus eventos la palabra usada como parametro de busqueda.
    */
   Chronology containing(std::string);
+
+
   friend std::istream& operator >> (std::istream& is, Chronology &);
   friend std::ostream& operator << (std::ostream& os, const Chronology &f);
 
 
-  HistoricDate find(int year);
+
 
 };
 #endif
