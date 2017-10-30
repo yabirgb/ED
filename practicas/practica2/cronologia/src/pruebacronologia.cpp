@@ -21,11 +21,12 @@ int main(int argc, char * argv[]){
    Chronology mi_cronologia;
    f>>mi_cronologia; //Cargamos en memoria la cronología.
 
+   cout << "Número de eventos en la cronología: " << mi_cronologia.getAmount() << endl;
 
    /* Exhibir aquí la funcionalidad programada para el TDA Cronologia / TDA FechaHistorica */
 
    // Test busqueda por año
-   int year, position;
+   int year;
 
    cout << "Introduzca un año para conseguir los eventos acontecidos en él: ";
    cin >> year;
@@ -53,13 +54,5 @@ int main(int argc, char * argv[]){
    cin >> end;
 
    cout << mi_cronologia.split(start, end);
-
-   // Algunas sugerencias:
-   // - Obtener los eventos acaecidos en un año dado
-   // - Obtener la (sub)cronología de eventos históricos acaecidos en [anioDesde, anioHasta], donde anioDesde y anioHasta son proporcionados por el usuario
-   // - Obtener la (sub)cronología de eventos históricos asociados a una palabra clave. Ejemplo: la cronología de eventos asociados a "Einstein"
-   // - Operadores sobre cronologías, ejemplo: Unión de dos cronologías (la cronología resultante debería estar ordenada)
-   // - Cualquier otra funcionalidad que consideréis de interés
-
 
 }
