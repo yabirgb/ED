@@ -39,7 +39,7 @@ operations = [(operator.add, False, lambda x,y: x+y < max, "+"), (operator.sub, 
               (operator.mul, False, lambda x,y: x*y < max, "*"), (operator.truediv, True, lambda x,y: x%y == 0, "/")]
 
 
-def rescale(lst, gen):
+def evolve(lst, gen):
 
     if (len(lst) == 1):
         return lst
@@ -74,25 +74,29 @@ def rescale(lst, gen):
 
     return news
 
-print(n)
+def evolution(lst):
 
-lon = len(n)
-genesis = rescale(n,1)
+    genesis = evolve(n, 1)
+    print("Working! YEAH BOIIIIIIII!")
 
-for i in range(2, 7):
-    print("LON: ", i)
-    print(genesis)
-    next = []
-    for block in genesis:
-        for k in rescale(block,i):
-            next.append(k)
+    for i in range(2, 7):
+        #print("LON: ", i)
+        #print(genesis)
+        next = []
+        for block in genesis:
+            for k in evolve(block,i):
+                next.append(k)
 
-    genesis = next
+        genesis = next
 
+    return genesis
 
-print(genesis)
-
-a835 = list(filter(lambda x: x.val == 835, genesis))
-print(a835)
-
+def compose(n):
+    genes = list(filter(lambda x: x.val == n, evolution(n)))
+    if(genes):
+        genes[0].recreate()
+    else:
+        print("No hay solución")
     
+
+compose(0)
