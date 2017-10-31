@@ -1,3 +1,5 @@
+import sys
+
 from itertools import combinations
 from functools import reduce
 import operator
@@ -29,17 +31,20 @@ class Node(object):
         
 
 #n = [6,8,10,9,4,75]
-n = [Node(value=6),Node(8), Node(10), Node(9), Node(4), Node(75)]
+base = [Node(value=1),Node(8), Node(10), Node(9), Node(4), Node(75)]
 
 max = 999
 
 
 #(operation, conmutative, restriction(optional), repr )
-operations = [(operator.add, False, lambda x,y: x+y < max, "{}+{}"), (operator.sub, True, lambda x,y: x > y, "{}-{}"),
-              (operator.mul, False, lambda x,y: x*y < max, "{}*{}"), (operator.truediv, True, lambda x,y: x%y == 0, "{}/{}")]
+operations = [(operator.add, False, lambda x,y: x+y < max, "{}+{}"),
+              (operator.sub, False, lambda x,y: x > y, "{}-{}"),
+              (operator.mul, True, lambda x,y: x*y < max, "{}*{}"),
+              (operator.truediv, True, lambda x,y: x%y == 0, "{}/{}")]
 
 
 def evolve(lst, gen):
+    # we assume that the Node values are unique
 
     if (len(lst) == 1):
         return lst
@@ -74,9 +79,9 @@ def evolve(lst, gen):
 
     return news
 
-def evolution(lst):
+def evolution(lst, origin):
 
-    genesis = evolve(n, 1)
+    genesis = evolve(origin, 1)
     print("Working! YEAH BOIIIIIIII!")
 
     for i in range(2, 7):
@@ -90,14 +95,29 @@ def evolution(lst):
 
     return genesis
 
-def compose(n):
-    l = evolution(n)
+def compose(n, base):
+    l = evolution(n, base)
     genes = list(filter(lambda x: x.val == n, l))
     if(genes):
         genes[0].recreate()
-        print(len(l))
     else:
         print("No hay solución")
     
 
-compose(94)
+if __name__ == "__main__":
+
+    if(len(sys.argv) == 1):
+        print("Número de argumentos erroneo")
+    
+    elif sys.argv[1] == "compose" and len(sys.argv) == 3:
+        compose(int(sys.argv[2]), base)
+
+    elif sys.argv[1] == "compose" and len(sys.argv) > 3 and len(sys.argv) <= 9:
+        newBase = []
+        for i in range(len(sys.argv) - 3):
+            newBase.append(Node(int(sys.argv[i+3])))
+
+        compose(int(sys.argv[2]), newBase)
+        
+    else:
+        print("No se reconoció el número de argumentos")
