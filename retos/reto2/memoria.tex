@@ -9,7 +9,9 @@
 
 \usepackage{multirow}
 
-\usepackage[]{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
 
 \usepackage[utf8]{inputenc}
 \setlength{\parindent}{0mm}
@@ -52,7 +54,7 @@ Se nos plantean los siguientes problemas:
 
 \item Determinar si un vector $C$ es una \textit{cadena mágica}, es
   decir, un vector tal que $L(C)$ contiene todos los elementos en el
-  rango $1 \le n \le 999$.
+  rango $100 \le n \le 999$.
 \end{itemize}
 
 \section{Acotación del problema}
@@ -101,21 +103,47 @@ $C \in I_{10}^{5} \times B$. La estrategia consistirá en formar
 parejas de elementos de $<a,b> \in P(N(C))$ y reducir en cada paso en
 1 la dimensión del vector $N(C)$ hasta que obtengamos un único nodo.
 
-\begin{algorithm}[H]
- \KwData{$<N(C),O>$}
- \KwResult{A finite array of nodes}
- initialization\;
- \While{not at end of this document}{
-  read current\;
-  \eIf{understand}{
-   go to next section\;
-   current section becomes this one\;
-   }{
-   go back to the beginning of current section\;
-  }
- }
- \caption{Definición del algoritmo}
+
+\begin{algorithm}
+\caption{Obtención de números a partir de un vector}
+\label{Computo de los resultados posibles}
+\begin{algorithmic}[1]
+\Procedure{Derivación}{}
+\For{pair $<i,j>$ in  $N(C)$ }
+\State Aplicar todas las operaciones a $i$ y $j$
+\State nuevaBase = $N(C)$ sin $i$ y $j$
+\State resultados = []
+\For{resultado de operar con $i$ y $j$}
+\State resultados += [resultado + nuevaBase]
+\EndFor
+\EndFor
+\EndProcedure
+\end{algorithmic}
 \end{algorithm}
+
+Una vez que tenemos un algoritmo para simplificar las operaciones
+simplemente tenemos que repetir el proceso en cada generación.
+
+\begin{algorithm}
+\caption{Reducción del número de elementos en un vector}
+\label{Iteraciones sobre cada subrama}
+\begin{algorithmic}[1]
+\Procedure{Evolución}{}
+\State genesis = derivación($<C(N), O>$)
+\For{generacion in range 2 a longitud($C(N)$)}
+\State next = []
+\For{bloque en genesis}
+\For{for rama en derivacion(rama,generacion)}
+\State next += rama
+\EndFor
+\EndFor
+\State genesis = next
+\EndFor
+\State return genesis
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 
 \section{Problemas de esta implementación y alternaticas}
 
@@ -137,5 +165,16 @@ el problema de la memoria.
 
 En tests \textit{rudimentarios} realizados en Ubuntu consume cerca de
 \textit{150MB} de espacio RAM.
+
+La implementación realizada en \textit{Python} que acompaña este
+código se desarrolló inicialmente pensando en un paradigma funcional y
+después se introdujo la programación usando objetos. Es por esto que
+ciertas parte del código están escritas de manera que es muy facil
+reescribirlas funcionalmente en un lenguaje como \textit{Haskell} lo
+que podría ser un ejercicio interesante.
+
+\section{Ejemplo de uso}
+
+python3 .py is-magic 7 8 9 10 25 100
 
 \end{document}

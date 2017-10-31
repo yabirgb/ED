@@ -37,9 +37,9 @@ max = 999
 
 
 #(operation, conmutative, restriction(optional), repr )
-operations = [(operator.add, False, lambda x,y: x+y < max, "{}+{}"),
+operations = [(operator.add, False, lambda x,y: True, "{}+{}"),
               (operator.sub, False, lambda x,y: x > y, "{}-{}"),
-              (operator.mul, True, lambda x,y: x*y < max, "{}*{}"),
+              (operator.mul, True, lambda x,y: True, "{}*{}"),
               (operator.truediv, True, lambda x,y: x%y == 0, "{}/{}")]
 
 
@@ -79,7 +79,7 @@ def evolve(lst, gen):
 
     return news
 
-def evolution(lst, origin):
+def evolution(origin):
 
     genesis = evolve(origin, 1)
     print("Working! YEAH BOIIIIIIII!")
@@ -96,14 +96,25 @@ def evolution(lst, origin):
     return genesis
 
 def compose(n, base):
-    l = evolution(n, base)
+    l = evolution(base)
     genes = list(filter(lambda x: x.val == n, l))
     if(genes):
         genes[0].recreate()
     else:
         print("No hay solución")
-    
 
+def is_magic(base):
+    l = evolution(base)
+    print("Generated full list")
+    for i in  range(100,1000):
+        if not list(filter(lambda x: x.val == i, l)):
+            return False
+
+        print("Se puede generar ", i, "✔")
+    return True
+            
+    
+#Manage from console
 if __name__ == "__main__":
 
     if(len(sys.argv) == 1):
@@ -112,7 +123,17 @@ if __name__ == "__main__":
     elif sys.argv[1] == "compose" and len(sys.argv) == 3:
         compose(int(sys.argv[2]), base)
 
-    elif sys.argv[1] == "compose" and len(sys.argv) > 3 and len(sys.argv) <= 9:
+    elif sys.argv[1] == "is-magic"  and len(sys.argv) == 8:
+        newBase = []
+        for i in range(len(sys.argv) - 2):
+            newBase.append(Node(int(sys.argv[i+2])))
+
+        if is_magic(newBase):
+            print("Es una cadena mágica")
+        else:
+            print("No es una cadena mágica")
+
+    elif sys.argv[1] == "compose" and len(sys.argv) == 9:
         newBase = []
         for i in range(len(sys.argv) - 3):
             newBase.append(Node(int(sys.argv[i+3])))
