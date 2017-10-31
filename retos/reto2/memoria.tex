@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[spanish]{babel}
+
+
+
+\usepackage{multirow}
+
+\usepackage[]{algorithm2e}
+
+\usepackage[utf8]{inputenc}
+\setlength{\parindent}{0mm}
+
+\usepackage[parfill]{parskip}
+
+% Para el código
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\newcommand{\n}[1]{{\color{gray}#1}}
+\lstset{numbers=left,numberstyle=\small\color{gray}}
+
+% Entorno para estilo de ejercicios
+\newenvironment{ejercicio}[1]{\textbf{#1} \vspace*{5mm}}{\vspace*{5mm}}
+\setlength{\parindent}{10pt} 
+
+\begin{document}
+
+\title{Estructura de datos - Reto 2}
+\author{Yábir García Benchakhtir}
+\date{\today}
+\maketitle
+
+\section{Definición del problema}
+
+Consideramos los conjuntos $I_{10} = \{1,2,3,4,5,6,7,8,9,10\}$ y
+$B = \{25,50,75,100\}$ y consideramos elementos
+$C \in I_{10}^{5} \times B$.
+
+Se nos plantean los siguientes problemas:
+
+\begin{itemize}
+\item Dado un elemento $C$ y un número $n$ tal que $1 \le n \le 999$
+  comprobar si $n \in L(C)$ donde notamos con $L(C)$ los resultados
+  posibles de operar con los elementos de $C$.
+
+\item Determinar el conjunto de operaciones necesarias para obtener
+  $n$ a partir de $C$.
+
+\item Determinar si un vector $C$ es una \textit{cadena mágica}, es
+  decir, un vector tal que $L(C)$ contiene todos los elementos en el
+  rango $1 \le n \le 999$.
+\end{itemize}
+
+\section{Acotación del problema}
+
+Podemos \textit{abstraer} el problema y no limitarlo unicamente al
+conjunto de operaciones $\{+,-,*,/\}$ usuales. Podemos usar un
+conjunto \textit{finito} de operaciones que notaremos como
+$\{p_1, p_2, ..., p_n\}$ (Podemos conseguir que el programa funcione con operaciones
+de ariedad $\ge 2 $).
+
+Estás operaciones pueden tener restricciones en su definición tales
+como ser conmutativas o no serlo, no poder tomar ciertos valores, etc.
+
+Así podemos crear \textit{n-uplas} del tipo $O = <p_i, r, l, rep>$
+donde:
+
+\begin{itemize}
+\item $p_i$ es la operación que se va a usar.
+\item $r$ es un valor de tipo \textbf{Bool} indicando si tiene o no
+  restricciones.
+\item $l$ es una función que evalua los operandos de $p_i$
+\item $rep$ es la representación que se va a usar para la operación. 
+\end{itemize}
+
+Por ejemplo si consideramos la operación $"-"$ usual podemos imponer la
+restricción de que para $a,b \in C$ tienen que verficar $a-b \ge 1$
+
+Así consideramos la estructura $<N(C), O>$ donde $N(C)$ es el vector
+de números hecho nodos como base para el procedimiento y crearemos
+para cada iteración del algorimo
+$<n, {n_1, ..., n_k} , p_i, gen>$, lo que hemos llamaremos
+\textit{nodo} y que contiene:
+
+\begin{itemize}
+\item $n$ - Valor del nodo
+\item ${n_1, ..., n_k}$ - Conjunto de nodos que originan el nodo.
+\item $p_i$ - Operación que origina el nodo.
+\item $gen$ - Número de generación.
+\end{itemize}
+
+\section{Descripción del algoritmo}
+
+En esta implementación vamos a \textit{recrear} un proceso
+\textit{evolutivo}.  Partimos de un vector
+$C \in I_{10}^{5} \times B$. La estrategia consistirá en formar
+parejas de elementos de $<a,b> \in P(N(C))$ y reducir en cada paso en
+1 la dimensión del vector $N(C)$ hasta que obtengamos un único nodo.
+
+\begin{algorithm}[H]
+ \KwData{$<N(C),O>$}
+ \KwResult{A finite array of nodes}
+ initialization\;
+ \While{not at end of this document}{
+  read current\;
+  \eIf{understand}{
+   go to next section\;
+   current section becomes this one\;
+   }{
+   go back to the beginning of current section\;
+  }
+ }
+ \caption{Definición del algoritmo}
+\end{algorithm}
+
+\section{Problemas de esta implementación y alternaticas}
+
+La implementación realizada presenta como principal problema el coste
+de memoria ya que tiene que almacenar los datos resultantes de cada
+iteración del algoritmo.
+
+Se ha elejido esta implementación por varios motivos:
+
+\begin{itemize}
+\item Es sencillo comprobar si una cadena es mágica o no.
+\item Para un mismo valor $n$ ofrece todas las posibles manera de
+  construirlo a partir de $C$.
+\end{itemize}
+
+Como posibles solucines podemos intentar no recorrer el \textit{arbol}
+por capas y recorrerlo en su lugar por ramas de modo que se resuelve
+el problema de la memoria.
+
+En tests \textit{rudimentarios} realizados en Ubuntu consume cerca de
+\textit{150MB} de espacio RAM.
+
+\end{document}

@@ -23,7 +23,7 @@ class Node(object):
         if(self.gen > 0):
             self.p1.recreate()
             self.p2.recreate()
-            print(self.p1.val,self.op[3],self.p2.val,"=", self.val)
+            print(self.op[3].format(self.p1.val,self.p2.val), "=", self.val)
 
     
         
@@ -35,8 +35,8 @@ max = 999
 
 
 #(operation, conmutative, restriction(optional), repr )
-operations = [(operator.add, False, lambda x,y: x+y < max, "+"), (operator.sub, True, lambda x,y: x > y, "-"),
-              (operator.mul, False, lambda x,y: x*y < max, "*"), (operator.truediv, True, lambda x,y: x%y == 0, "/")]
+operations = [(operator.add, False, lambda x,y: x+y < max, "{}+{}"), (operator.sub, True, lambda x,y: x > y, "{}-{}"),
+              (operator.mul, False, lambda x,y: x*y < max, "{}*{}"), (operator.truediv, True, lambda x,y: x%y == 0, "{}/{}")]
 
 
 def evolve(lst, gen):
@@ -86,17 +86,18 @@ def evolution(lst):
         for block in genesis:
             for k in evolve(block,i):
                 next.append(k)
-
         genesis = next
 
     return genesis
 
 def compose(n):
-    genes = list(filter(lambda x: x.val == n, evolution(n)))
+    l = evolution(n)
+    genes = list(filter(lambda x: x.val == n, l))
     if(genes):
         genes[0].recreate()
+        print(len(l))
     else:
         print("No hay solución")
     
 
-compose(0)
+compose(94)
