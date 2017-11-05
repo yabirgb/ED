@@ -48,9 +48,9 @@ class HistoricDate{
   // ---------------  Constructores ----------------
   /**
    * @brief Constructor por defecto
-   * @param Un entero representando el años que se introduce,
-   * un objeto de la clase @c DinamicArray con los eventos occuridos
-   * y separator de tipo @c char que indica cual es el separador de la
+   * @param y Un entero representando el años que se introduce
+   * @param e un objeto de la clase @c DinamicArray con los eventos occuridos
+   * @param separator de tipo @c char que indica cual es el separador de la
    * cadena de strings.
    */
   HistoricDate(int y,  DinamicArray<std::string> & e, char separator);
@@ -92,14 +92,14 @@ class HistoricDate{
   char getSeparator();
   /**
    * @brief Establecer el dato miembro año según el parámetro dado como argumento
-   * @param Un dato de tipo @c int que representa el nuevo año del objeto
+   * @param y @c int que representa el nuevo año del objeto
    */
   void setYear(int y);
 
   /**
    * @brief Añade un elemento al vector de eventos representando un evento que
    * ha sucedido en dicho año.
-   * @param Un dato de tipo @c string que contiene el evento que se quiere añadir.
+   * @param nombre @c string que contiene el evento que se quiere añadir.
    */
   void pushEvent(std::string nombre);
 
@@ -115,10 +115,10 @@ class HistoricDate{
   /**
    * @brief Combinar dos fechas históricas de modo que si ambas tienen en el
    * mismo año se combinan los eventos ocurridos.
-   * @param Un objeto de tipo @c HistoricDate que permanecerá intacto y será
+   * @param origin Un objeto de tipo @c HistoricDate que permanecerá intacto y será
    * aquel del que se extraigan los nuevos eventos para ser combinados.
    */
-  void operator+=(const HistoricDate &);
+  void operator+=(const HistoricDate & origin);
 
   /**
   * @brief Sobrecarga del operador =
@@ -128,12 +128,12 @@ class HistoricDate{
 
 
   /**
-  * @brief Sobrecar del operador de entrada
+  * @brief Sobrecarga del operador de entrada
   */
   friend std::istream& operator >> (std::istream& is, HistoricDate &);
 
   /**
-  * @brief Sobrecar del operador de salida
+  * @brief Sobrecarga del operador de salida
   */
   friend std::ostream& operator << (std::ostream& os, const HistoricDate &f);
 

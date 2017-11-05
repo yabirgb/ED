@@ -33,6 +33,17 @@ class Chronology{
 
  private:
 
+   /**
+      * @page Chronology
+      * @section Representación
+      *
+      * Una cronología representa un conjunto de fechas ordenadas por orden
+      * ascendente de año. Cada fecha está representado por el tipo
+      * @historicDate que tiene asociado un conjunto de eventos ocurridos
+      *
+   */
+
+
 
   DinamicArray<HistoricDate> years; /**< Array dinámico que representa una colección de años*/
 
@@ -81,15 +92,15 @@ class Chronology{
   /**
    * @brief Añadir un elemento a la cronología. Se realiza una
    * insercción de manera ordenada.
-   * @param Acepta un parámetro de tipo @c HistoricDate
+   * @param year @c HistoricDate representando la fecha que se va a insertar de forma
+   * ordenada.
    */
   void insertYear(HistoricDate year);
 
   /**
    * @brief Combinar dos cronologías de modo que la resultane
    * esté ordenada también.
-   * @param Acepta un parámetro de tipo @c Chronology que representa
-   * la cronología que se quiere añadir.
+   * @param f @c Chronology que representa la cronología que se quiere añadir.
    */
   void operator+=(const Chronology & f);
 
@@ -119,8 +130,8 @@ class Chronology{
   /**
    * @brief Conseguir una sub-cronología a partir de otra seleccionando
    * un rango de años
-   * @param Acepta dos parámetro de tipo @c int que representan
-   * el límite inferior y el limite superior.
+   * @param low @c int Limite inferior de la subcronlogía
+   * @param high @c int Límite superior de la subcrología
    * @return Devuelve un tipo @c Chronology con las fechas que se encuentran
    * entre los límites superiores e inferiores.
    */

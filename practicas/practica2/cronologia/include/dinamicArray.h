@@ -70,7 +70,7 @@ class DinamicArray{
   DinamicArray<T>(int n=0);
   /**
    * @brief Constructor de copia
-   * @param original es otro DinamicArray
+   * @param original es otro DinamicArray para usarse en la copia
    */
   DinamicArray<T>(const DinamicArray<T>& original);
 
@@ -113,7 +113,7 @@ class DinamicArray{
   T& operator [] (int i);
   /**
    * @brief Acceso a una posición de @c data. Acceso solo de lectura.
-   * @param i entero que representa la posición que se quiere acceder. 0 <= i < size()
+   * @param i entero que representa la posición que se quiere acceder. 0 <= i < used()
    * @return Referencia constante a un elemento de tipo @c T contenido en @c data
    */
   const T& operator [] (int i) const;
@@ -130,7 +130,8 @@ class DinamicArray{
   void boost();
   /**
    * @brief Añade un elemento a @c data en la posición @c pos.
-   * @param Un elemento de tipo @ T y un entero de representando la posición.
+   * @param e Un elemento de tipo @ T que será el elemento que se insertar
+   * @param pos Un @int que indica la posición en la que se inserta
    * @see insert()
    */
   bool insert(T e, int pos);
