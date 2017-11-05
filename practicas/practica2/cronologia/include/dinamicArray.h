@@ -137,5 +137,5 @@ class DinamicArray{
 };
 
 
-#include "dinamicArray.cpp"
+#include "../src/dinamicArray.cpp"
 #endif /* _vectorDinamico_h */

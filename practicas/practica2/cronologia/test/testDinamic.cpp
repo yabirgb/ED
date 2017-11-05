@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 #include "dinamicArray.h"
 
 
@@ -114,6 +115,22 @@ bool testInsert(){
 
 }
 
+bool testAccess(){
+
+  DinamicArray<int> test(3);
+  bool atrapada = true;
+
+  try{
+    cout << test[4] << endl;
+    atrapada = false;
+  } catch (out_of_range & e){
+    cout << "Error atrapado en access" << endl;
+  }
+
+  return atrapada;
+
+}
+
 int main(){
 
   cout << "==================" << endl;
@@ -125,5 +142,6 @@ int main(){
   cout << "==================" << endl;
   cout << "Insert: " << testInsert() << endl;
   cout << "==================" << endl;
-
+  cout << "Access: " << testAccess() << endl;
+  cout << "==================" << endl;
 }
