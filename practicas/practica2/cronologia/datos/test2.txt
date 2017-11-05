@@ -1,0 +1,13 @@
+1903#A Fast Fourier Transform algorithm presented by Carle David Tolmé Runge
+1926#Borůvka's algorithm
+1934#Delaunay triangulation developed by Boris Delaunay
+1936#Turing machine, an abstract machine developed by Alan Turing, with others developed the modern notion of algorithm.
+1942#A Fast Fourier Transform algorithm developed by G.C. Danielson and Cornelius Lanczos
+1945#Merge sort developed by John von Neumann
+1947#Simplex algorithm developed by George Dantzig
+1952#Huffman coding developed by David A. Huffman
+1953#Simulated annealing introduced by Nicholas Metropolis
+1954#Radix sort computer algorithm developed by Harold H. Seward
+1956#Kruskal's algorithm developed by Joseph Kruskal
+1957#Prim's algorithm developed by Robert Prim#Bellman–Ford algorithm developed by Richard E. Bellman and L. R. Ford, Jr.
+1959#Dijkstra's algorithm developed by Edsger Dijkstra#Shell sort developed by Donald L. Shell#De Casteljau's algorithm developed by Paul de Casteljau
