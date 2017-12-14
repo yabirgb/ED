@@ -4,6 +4,7 @@
 #include <iterator>
 #include <math.h>
 #include <algorithm>
+#include <vector>
 
 QuienEsQuien::QuienEsQuien(){}
 
@@ -200,14 +201,61 @@ vector<bool> convertir_a_vector_bool(int n, int digitos) {
   return ret;
 }
 
-bintree<Pregunta> QuienEsQuien::crear_arbol()
-{
+bintree<Pregunta> QuienEsQuien::crear_arbol(){
+	//Vamos a crear un vector que tenga los personajes
+	//que todavía no hemos descartado. True es que sigue en la partida
+	std::vector<bool> perState(personajes.size(), true);
+
+	//Vector que almacena las preguntas que se han hecho. True se puede preguntar
+	std::vector<bool> queState(atributos.size(), true);
+
+	//Arbol de preguntas
 	bintree<Pregunta> arbol;
-	if(!arbol.size()){
-		arbol = bintree<Pregunta> nombre (atributos[0]);
-	}
+
+	//Creamos una función recursiva
+	crear_rescursivo(arbol, perState, queState);
 
 	return arbol;
+}
+
+int QuienEsQuien::eligePregunta(std::vector<bool> &per, std::vector<bool> &que){
+	for(int i = 0; i < que.size(); i++){
+		if (que[i] == true)
+			return i;
+	}
+}
+
+bool QuienEsQuien::crear_rescursivo(bintree<Pregunta> &arb,
+	std::vector<bool> &per, std::vector<bool> &que){
+
+		//Aquí ahora hay que añadir el personaje
+		if(que.find(que.begin(), que.end(), true) == que.end())
+			return false;
+
+		//Se pueden seguir haciendo preguntas
+		int pregunta = eligePregunta(arb, per);
+		std::vector<int> verifican, noVerifican;
+
+		int keep = 0;
+
+		for(int i = 0; i < per.size(); i++){
+			if(per[i]){
+				keep++;
+				if(tablero[i][pregunta] == true)
+					verifican.push_back(pregunta);
+				else
+					noVerifican.push_back(pregunta);
+			}
+		}
+
+		//Hay más de un personaje hacemos recursividad
+		if(keep > 1){}
+		else{
+			Pregunta ultPer(personajes[verifican[0]], 1);
+			arbol = bintree<Pregunta> arb(ultPer);
+		} //Hemos llegado al final. Fue bonito mientras duro
+
+
 }
 
 void QuienEsQuien::usar_arbol(bintree<Pregunta> arbol_nuevo){

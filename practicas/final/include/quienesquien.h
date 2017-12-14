@@ -185,6 +185,14 @@ public:
 	  * @param numero_de_personajes N�mero de personajes que tiene el tablero a crear.
 	  */
 	void tablero_aleatorio(int numero_de_personajes);
+
+
+
+	///////////////////
+	//True significa que continuamos generando *Keep it cutre*
+	bool crear_rescursivo(bintree<Pregunta> &, std::vector<bool> &per, std::vector<bool> &que);
+
+	int eligePregunta(std::vector<bool> &per, std::vector<bool> &que)
 };
 
 #endif
