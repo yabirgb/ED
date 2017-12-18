@@ -9,7 +9,7 @@
 QuienEsQuien::QuienEsQuien(){}
 
 QuienEsQuien::QuienEsQuien(const QuienEsQuien &quienEsQuien){
-	this = quienEsQuien;
+	*this = quienEsQuien;
 }
 QuienEsQuien& QuienEsQuien::operator= (const QuienEsQuien &quienEsQuien){
 	personajes = quienEsQuien.personajes;
@@ -160,7 +160,7 @@ ostream& operator << (ostream& os, const QuienEsQuien &quienEsQuien){
 
 	//Rellenamos con ceros y unos cada l�nea y al final ponemos el nombre del personaje.
 	for(int indice_personaje=0;indice_personaje<quienEsQuien.personajes.size();indice_personaje++){
-		for(int indice_atributo=0;indice_atributo<quienEsQuien.personajes.size();indice_atributo++){
+		for(int indice_atributo=0;indice_atributo<quienEsQuien.atributos.size();indice_atributo++){
 
 			os  << quienEsQuien.tablero[indice_personaje][indice_atributo] << "\t";
 		}
@@ -213,47 +213,81 @@ bintree<Pregunta> QuienEsQuien::crear_arbol(){
 	bintree<Pregunta> arbol;
 
 	//Creamos una función recursiva
-	crear_rescursivo(arbol, perState, queState);
+	crear_recursivo(arbol, perState, queState);
 
 	return arbol;
 }
 
-int QuienEsQuien::eligePregunta(std::vector<bool> &per, std::vector<bool> &que){
+int QuienEsQuien::eligePregunta(std::vector<bool> &que){
 	for(int i = 0; i < que.size(); i++){
 		if (que[i] == true)
 			return i;
 	}
 }
 
-bool QuienEsQuien::crear_rescursivo(bintree<Pregunta> &arb,
-	std::vector<bool> &per, std::vector<bool> &que){
+bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arb, std::vector<bool> &per, std::vector<bool> &que){
 
-		//Aquí ahora hay que añadir el personaje
-		if(que.find(que.begin(), que.end(), true) == que.end())
-			return false;
+  //Aquí ahora hay que añadir el personaje
+  if(find(que.begin(), que.end(), true) == que.end())
+    return false;
 
-		//Se pueden seguir haciendo preguntas
-		int pregunta = eligePregunta(arb, per);
-		std::vector<int> verifican, noVerifican;
+  //Se pueden seguir haciendo preguntas
+  int pregunta = eligePregunta(que);
+  std::vector<int> verifican, noVerifican;
 
-		int keep = 0;
+  int keep = 0;
 
-		for(int i = 0; i < per.size(); i++){
-			if(per[i]){
-				keep++;
-				if(tablero[i][pregunta] == true)
-					verifican.push_back(pregunta);
-				else
-					noVerifican.push_back(pregunta);
-			}
-		}
+  for(int i = 0; i < per.size(); i++){
+    if(per[i]){
+      keep++;
+      if(tablero[i][pregunta] == true)
+	verifican.push_back(pregunta);
+      else
+	noVerifican.push_back(pregunta);
+    }
+  }
 
-		//Hay más de un personaje hacemos recursividad
-		if(keep > 1){}
-		else{
-			Pregunta ultPer(personajes[verifican[0]], 1);
-			arbol = bintree<Pregunta> arb(ultPer);
-		} //Hemos llegado al final. Fue bonito mientras duro
+  que[pregunta] = false;
+  int size = verifican.size() + noVerifican.size();
+  Pregunta preguntita(atributos[pregunta], size);
+  bintree<Pregunta> arbolico(preguntita);
+
+  //Hay más de un personaje hacemos recursividad
+  if(keep > 1){
+
+    //La rama de la derecha son los que verifican la condición
+    bintree<Pregunta> rama_izq;
+    //La rama izquierda es la de los personajes que no verifican
+    //la condición
+    bintree<Pregunta> rama_dch;
+
+
+    std::vector<bool> per_izq(noVerifican.size(), 0);
+    std::vector<bool> per_dch(verifican.size(), 0);
+    
+    for(int i=0; i<per.size(); i++){
+      if (find(verifican.begin(), verifican.end(), i) != verifican.end())
+	per_dch[i] = 1;
+      else
+	per_izq[i] = 1;
+    }
+
+    
+    crear_recursivo(rama_izq,per_izq, que);
+    crear_recursivo(rama_dch,per_dch, que);
+
+    arbol = arbolico;
+
+    arbol.insert_right(arbolico.root(),rama_dch);
+    arbol.insert_left(arbolico.root(),rama_izq);
+		    
+  }
+  else{
+    Pregunta ultPer(personajes[verifican[0]], 1);
+    bintree<Pregunta> arb(ultPer);
+    arbol = arb;
+    
+  } //Hemos llegado al final. Fue bonito mientras duro
 
 
 }

@@ -190,9 +190,9 @@ public:
 
 	///////////////////
 	//True significa que continuamos generando *Keep it cutre*
-	bool crear_rescursivo(bintree<Pregunta> &, std::vector<bool> &per, std::vector<bool> &que);
+	bool crear_recursivo(bintree<Pregunta> &, std::vector<bool> &per, std::vector<bool> &que);
 
-	int eligePregunta(std::vector<bool> &per, std::vector<bool> &que)
+	int eligePregunta(std::vector<bool> &que);
 };
 
 #endif
