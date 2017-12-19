@@ -271,9 +271,9 @@ bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
 		bintree<Pregunta> arbolico(preguntita);
 		arbol = arbolico;
 
-    //La rama de la derecha son los que verifican la condición
+    //La rama de la derecha son los que NO verifican la condición
     bintree<Pregunta> rama_izq;
-    //La rama izquierda es la de los personajes que no verifican
+    //La rama izquierda es la de los personajes que SI verifican
     //la condición
     bintree<Pregunta> rama_dch;
 
@@ -281,12 +281,12 @@ bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
 		int enNoVerfican = count(noVerifican.begin(), noVerifican.end(), true);
 
 		if(enVerifican > 0){
-    	crear_recursivo(rama_dch,verifican, que);
-			arbol.insert_right(arbol.root(),rama_dch);
+    	crear_recursivo(rama_izq,verifican, que);
+			arbol.insert_left(arbol.root(),rama_izq);
 		}
 		if(enNoVerfican > 0){
-			crear_recursivo(rama_izq,noVerifican, que);
-			arbol.insert_left(arbol.root(),rama_izq);
+			crear_recursivo(rama_dch,noVerifican, que);
+			arbol.insert_right(arbol.root(),rama_dch);
 		}
   }else{
 
