@@ -230,7 +230,7 @@ bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
 
 	//Hacemos recursión mientras tengamos preguntas que hcaer
   if(find(que.begin(), que.end(), true) == que.end())
-    return true;
+		return true;
 
   //Se pueden seguir haciendo preguntas
 
@@ -259,8 +259,6 @@ bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
   }
 
 	//Desmarcamos la pregunta como pregunta que se pueda hacer
-	cout << atributos[pregunta] << endl;
-	cout << verifican << "\t" << noVerifican << endl;
   que[pregunta] = false;
 
   //Hay más de un personaje hacemos recursividad
@@ -293,7 +291,10 @@ bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
   }else{
 
 		//Posicion del ultimo personaje
-		int pos = find(verifican.begin(), verifican.end(), true) - verifican.begin()-1;
+		int pos = find(verifican.begin(), verifican.end(), true) - verifican.begin();
+		if(pos == personajes.size())
+			pos = find(noVerifican.begin(), noVerifican.end(), true) - noVerifican.begin();
+
     Pregunta ultPer(personajes[pos], 1);
     bintree<Pregunta> arb(ultPer);
     arbol = arb;
