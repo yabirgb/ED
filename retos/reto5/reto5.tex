@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[spanish]{babel}
+
+
+
+\usepackage{multirow}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
+
+\usepackage[utf8]{inputenc}
+\setlength{\parindent}{0mm}
+
+\usepackage[parfill]{parskip}
+
+% Para el código
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\newcommand{\n}[1]{{\color{gray}#1}}
+\lstset{numbers=left,numberstyle=\small\color{gray}}
+
+% Entorno para estilo de ejercicios
+\newenvironment{ejercicio}[1]{\textbf{#1} \vspace*{5mm}}{\vspace*{5mm}}
+\setlength{\parindent}{10pt} 
+
+\begin{document}
+
+\section{Problema}
+
+Se nos da una función \textit{hash} definida como: $$ h(k) = k \% M $$
+y un sistema para resolver colisiones siguiendo un esquema de hashing doble mediante la función:
+$$ h_i(k) = [h(k) + d_i] \% M $$ con i un número natural mayor que 1 y $d_i$ definido como: $$d_i = [a*d_{i-1}+c] \% M $$ y $d_0 = 0$
+
+A partir de estas condiciones se nos pide que fijado un número $M$
+primo discutamos cuales son los pares $<a,c>$ que provocan que usados
+en la definición anterior la función ocupe todas las posiciones
+disponibles antes de repetir posiciones, es decir, nos garanticemos
+que tenemos acceso a todas las posiciones de la tabla.
+
+\section{Encontrar los pares}
+
+Por definición de $d_i$ los valores de $a$ y $c$ que tenemos que
+comprobar abarcan desde 0 a $M-1$ ya que estamos realizando una
+operación de módulo. Por ello si definimos $I_N = {0..N}$ tenemos que buscar
+$$\{<a,c> \in I_{M-1}\times I_{M-1}\}$$ que completan todos los huecos accesibles de nuestra
+tabla \textit{hash}.
+
+Para ello vamos a introducir $M$ veces el mismo valor en la tabla de
+modo que provoquemos el máximo de colisiones posibles y podamos
+comprobar si todos los huecos de nuestra tabla se rellenan.
+
+Para ello 
+
+\end{document}
