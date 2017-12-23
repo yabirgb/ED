@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <vector>
 
+#include <ctype.h>
+
 QuienEsQuien::QuienEsQuien(){}
 
 QuienEsQuien::QuienEsQuien(const QuienEsQuien &quienEsQuien){
@@ -28,7 +30,7 @@ void QuienEsQuien::limpiar(){
 	atributos.clear();
 	tablero.clear();
 	arbol.clear();
-	jugada_actual.remove();
+	//jugada_actual.remove();
 }
 
 template <typename T>
@@ -309,7 +311,28 @@ void QuienEsQuien::usar_arbol(bintree<Pregunta> arbol_nuevo){
 }
 
 void QuienEsQuien::iniciar_juego(){
-	//TODO :)
+	//Cuando iniciamos el juego lo hacemos con el nodo en la raiz
+	jugada_actual = arbol.root();
+	char entrada;
+	//Jugamos hasta que llegemos a un nodo de tipo personaje
+	while((*jugada_actual).es_pregunta()){
+
+
+		cout << "¿Tu personaje es " << (*jugada_actual).obtener_pregunta() << "? [y/n] ";
+		cin >> entrada;
+
+		entrada = tolower(entrada);
+
+		if(entrada != 'y' and entrada != 'n' )
+			continue;
+
+		if(entrada == 'y')
+			jugada_actual = jugada_actual.left();
+		else
+			jugada_actual = jugada_actual.right();
+	}
+
+	cout << "Tu personaje era " << (*jugada_actual).obtener_personaje() << endl;
 }
 
 set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actual){
