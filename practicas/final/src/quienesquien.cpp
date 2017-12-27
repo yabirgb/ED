@@ -331,14 +331,30 @@ void QuienEsQuien::iniciar_juego(){
 		else
 			jugada_actual = jugada_actual.right();
 	}
-
 	cout << "Tu personaje era " << (*jugada_actual).obtener_personaje() << endl;
 }
 
 set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actual){
+	set<string> personajes_levantados, right, left;
 
-	//TODO :)
-	set<string> personajes_levantados;
+	//Si tengo una pregunta
+	if (*jugada_actual).es_pregunta()){
+
+		//Llamo a la función por la rama de la derecha
+		right = informacion_jugada(jugada_actual.right());
+
+		//Llamo a la función por la rama de la izquierda
+		left = informacion_jugada(jugada_actual.left());
+
+		//Insertto los dos conjuntos en el resultante
+		personajes_levantados.insert(right.begin(), right.end());
+		personajes_levantados.insert(left.begin(), left.end());
+
+	}else
+		personajes_levantados.insert((*jugada_actual).obtener_personaje())
+		//Cuando llego a un personaje lo inserto en el vector que devuelvo
+
+
 	return personajes_levantados;
 }
 
@@ -370,7 +386,7 @@ void QuienEsQuien::eliminar_nodos_redundantes(){
 }
 
 float QuienEsQuien::profundidad_promedio_hojas(){
-	//TODO :)
+	int Profundidad;
 
 	return -1;
 }
