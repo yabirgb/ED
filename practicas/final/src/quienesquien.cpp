@@ -338,7 +338,7 @@ set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actu
 	set<string> personajes_levantados, right, left;
 
 	//Si tengo una pregunta
-	if (*jugada_actual).es_pregunta()){
+	if ((*jugada_actual).es_pregunta()){
 
 		//Llamo a la función por la rama de la derecha
 		right = informacion_jugada(jugada_actual.right());
@@ -351,10 +351,8 @@ set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actu
 		personajes_levantados.insert(left.begin(), left.end());
 
 	}else
-		personajes_levantados.insert((*jugada_actual).obtener_personaje())
+		personajes_levantados.insert((*jugada_actual).obtener_personaje());
 		//Cuando llego a un personaje lo inserto en el vector que devuelvo
-
-
 	return personajes_levantados;
 }
 
@@ -382,13 +380,40 @@ void QuienEsQuien::escribir_arbol_completo() const{
 }
 
 void QuienEsQuien::eliminar_nodos_redundantes(){
-	// TODO ^^
+
+	bintree<Pregunta>::node nodo;
+	bintree<Pregunta> rama;
+
+
+}
+
+void QuienEsQuien::profundidad_recursivo(bintree<Pregunta>::node nodo,
+	int profundidad, int& suma, int& num_ramas){
+
+	if(nodo.null() || (*nodo).es_personaje()){
+		//Aumentamos en 1 en lugar de 2 ya que la anterior sigue contanto. Es
+		//una bifurcación.
+		num_ramas++;
+		suma += profundidad;
+		return;
+	}else{
+		//Descendemos un nivel
+		profundidad++;
+		//Evaluamos recurisvamente la situación
+		profundidad_recursivo(nodo.left(), profundidad, suma, num_ramas);
+		profundidad_recursivo(nodo.right(), profundidad, suma, num_ramas);
+	}
 }
 
 float QuienEsQuien::profundidad_promedio_hojas(){
-	int Profundidad;
+	float Profundidad = 0;
+	int suma = 0;
+	int num_ramas = 0;
 
-	return -1;
+	profundidad_recursivo(arbol.root(), Profundidad, suma, num_ramas);
+
+	Profundidad = (suma + 0.0) / num_ramas;
+	return Profundidad;
 }
 
 /**
