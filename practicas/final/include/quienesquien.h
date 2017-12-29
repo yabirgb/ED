@@ -191,8 +191,8 @@ public:
 	///////////////////
 	//True significa que continuamos generando *Keep it cutre*
 	bool crear_recursivo(bintree<Pregunta> &, const std::vector<bool> per, std::vector<bool> que);
-
 	int eligePregunta(std::vector<bool> &que);
+	void profundidad_recursivo(bintree<Pregunta>::node, int, int &, int & );
 };
 
 #endif
