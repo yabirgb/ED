@@ -12,7 +12,7 @@ int main(int argc, char * argv[]){
 	bool jugar = false;
 	bool limpiar = false;
 	QuienEsQuien quienEsQuien;
-	
+
 	if(argc == 2){
 		string parametroAleatorio = "aleatorio";
 		if(argv[1]== parametroAleatorio){
@@ -73,24 +73,24 @@ int main(int argc, char * argv[]){
 
 	quienEsQuien.mostrar_estructuras_leidas();
 	quienEsQuien.usar_arbol(quienEsQuien.crear_arbol());
-	
+
 	cout << "=========== Arbol en crudo ===========" << endl;
 	quienEsQuien.escribir_arbol_completo();
-	
-	cout << "Profundidad promedio de las hojas del arbol: ";
-	cout << quienEsQuien.profundidad_promedio_hojas() << endl; 
+
+	cout << "\nProfundidad promedio de las hojas del arbol: ";
+	cout << quienEsQuien.profundidad_promedio_hojas() << endl;
 	cout << "======================================" << endl << endl << endl;
 
 	quienEsQuien.eliminar_nodos_redundantes();
-	
+
 	cout << "=========== Arbol ===================="<<endl;
 	quienEsQuien.escribir_arbol_completo();
-	cout << "Profundidad promedio de las hojas del arbol: ";
-	cout << quienEsQuien.profundidad_promedio_hojas()<<endl; 
+	cout << "\nProfundidad promedio de las hojas del arbol: ";
+	cout << quienEsQuien.profundidad_promedio_hojas()<<endl;
 	cout << "======================================" << endl << endl << endl;
 
 	if(jugar){
-		quienEsQuien.iniciar_juego();
+		//quienEsQuien.iniciar_juego();
 	}
 	return 0;
 }

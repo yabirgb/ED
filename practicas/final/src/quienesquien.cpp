@@ -382,7 +382,6 @@ void QuienEsQuien::escribir_arbol_completo() const{
 
 void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	//Estamos estudiando los dos nodos hijos, no el nodo actual
-	cout << "INICIO " << (*nodo).obtener_pregunta() << endl;
 
 	//Estamos en un nodo y comprobamos si alguno de los hijos es nulo
 	bintree<Pregunta>::node hijoD = nodo.right();
@@ -404,7 +403,7 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 			if(estudiando[i].left().null())
 				arbol.prune_right(estudiando[i], arbolico);
 			else if(estudiando[i].right().null())
-				arbol.prune_right(estudiando[i], arbolico);
+				arbol.prune_left(estudiando[i], arbolico);
 
 			//insertamos en el cacho que corresponda
 			if (i == 0) {
@@ -419,11 +418,10 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	}
 
 	escribir_arbol_completo();
-	cout << "FIN " << (*nodo).obtener_pregunta() << endl;
-
-	if(nodo.left().null() == false || (*nodo.left()).es_personaje())
+	cout << "===============================" << endl;
+	if((*nodo.left()).es_personaje())
 		eliminar_recursivo(nodo.right());
-	else if(nodo.right().null() == false || (*nodo.right()).es_personaje())
+	else if((*nodo.right()).es_personaje())
 		eliminar_recursivo(nodo.left());
 	else{
 		eliminar_recursivo(nodo.right());
