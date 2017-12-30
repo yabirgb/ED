@@ -5,6 +5,7 @@
 #include <math.h>
 #include <algorithm>
 #include <vector>
+#include <list>
 
 #include <ctype.h>
 
@@ -379,12 +380,67 @@ void QuienEsQuien::escribir_arbol_completo() const{
 	escribir_esquema_arbol(cout,this->arbol,this->arbol.root(),pre);
 }
 
+void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
+	//Estamos estudiando los dos nodos hijos, no el nodo actual
+	cout << "INICIO " << (*nodo).obtener_pregunta() << endl;
+
+	//Estamos en un nodo y comprobamos si alguno de los hijos es nulo
+	bintree<Pregunta>::node hijoD = nodo.right();
+	bintree<Pregunta>::node hijoI = nodo.left();
+
+
+	//Vamos a estudiar a los hijos así que en total tenemos 4 nodos
+	std::vector<bintree<Pregunta>::node> estudiando {hijoI, hijoD};
+
+	//Arbol donde guardaremos la parte que recortemos
+	bintree<Pregunta> arbolico; //de navidad
+
+	//Para no repetir codigo hacemos un bucle
+	for(int i=0; i < 2; i++){
+		//Comprobamos que el hijo sea una pregunta
+		if((*estudiando[i]).es_pregunta()){
+
+			//recortamos la rama que corresponda
+			if(estudiando[i].left().null())
+				arbol.prune_right(estudiando[i], arbolico);
+			else if(estudiando[i].right().null())
+				arbol.prune_right(estudiando[i], arbolico);
+
+			//insertamos en el cacho que corresponda
+			if (i == 0) {
+				arbol.insert_left(nodo, arbolico);
+				estudiando[0] = nodo.left();
+			} else {
+				arbol.insert_right(nodo, arbolico);
+				estudiando[1] = nodo.right();
+			}
+
+		}
+	}
+
+	escribir_arbol_completo();
+	cout << "FIN " << (*nodo).obtener_pregunta() << endl;
+
+	if(nodo.left().null() == false || (*nodo.left()).es_personaje())
+		eliminar_recursivo(nodo.right());
+	else if(nodo.right().null() == false || (*nodo.right()).es_personaje())
+		eliminar_recursivo(nodo.left());
+	else{
+		eliminar_recursivo(nodo.right());
+		eliminar_recursivo(nodo.left());
+	}//Continuamos la recursion
+
+
+}
+
 void QuienEsQuien::eliminar_nodos_redundantes(){
 
-	bintree<Pregunta>::node nodo;
-	bintree<Pregunta> rama;
+	if (arbol.root().left().null())
+		arbol.prune_right(arbol.root(), arbol);
+	else if(arbol.root().right().null())
+		arbol.prune_left(arbol.root(), arbol);
 
-
+	eliminar_recursivo(arbol.root());
 }
 
 void QuienEsQuien::profundidad_recursivo(bintree<Pregunta>::node nodo,

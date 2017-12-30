@@ -193,6 +193,7 @@ public:
 	bool crear_recursivo(bintree<Pregunta> &, const std::vector<bool> per, std::vector<bool> que);
 	int eligePregunta(std::vector<bool> &que);
 	void profundidad_recursivo(bintree<Pregunta>::node, int, int &, int & );
+	void eliminar_recursivo(bintree<Pregunta>::node);
 };
 
 #endif
