@@ -194,6 +194,10 @@ public:
 	int eligePregunta(std::vector<bool> &que);
 	void profundidad_recursivo(bintree<Pregunta>::node, int, int &, int & );
 	void eliminar_recursivo(bintree<Pregunta>::node);
+
+	//Metodos adicionales
+	void preguntas_formuladas(bintree<Pregunta>::node)
+
 };
 
 #endif

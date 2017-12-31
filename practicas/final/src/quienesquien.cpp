@@ -395,10 +395,13 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 
 	//Para no repetir codigo hacemos un bucle
 	for(int i=0; i < 2; i++){
+		//Arbol donde guardar lo que recortamos
 		bintree<Pregunta> arbolico; // de navidad
+
 		//Comprobamos que el hijo sea una pregunta
 		if(!estudiando[i].null() && (*estudiando[i]).obtener_num_personajes() > 1  &&
 					(estudiando[i].left().null() || estudiando[i].right().null()) ){
+
 			//recortamos la rama que corresponda
 			if(estudiando[i].left().null()){
 				arbol.prune_right(estudiando[i], arbolico);
@@ -417,6 +420,7 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 
 		}
 
+		//Seguimos con la recursión
 		if(!nodo.left().null()){
 			if((*nodo.left()).obtener_num_personajes() >=2)
 				eliminar_recursivo(nodo.left());
@@ -522,4 +526,20 @@ void QuienEsQuien::tablero_aleatorio(int numero_de_personajes){
 		personajes.erase(personajes.begin()+personaje_a_eliminar);
 		tablero.erase(tablero.begin()+personaje_a_eliminar);
 	}
+}
+
+//Metodos adicionales
+
+void QuienEsQuien::preguntas_formuladas(bintree<Pregunta>::node jugada){
+
+	//Para esta parte usaremos un stack. Podríamos usar una lista y recorrerla
+	//en dos sentidos pero para esto un stack es la mejor estructura.
+
+
+
+	//Creamos un stack
+	//recorremos hacia arriba el arbol hasta que llegamos a la raiz
+	//Introducimos las preguntas en el stack
+	//Imprimos el stack
+
 }
