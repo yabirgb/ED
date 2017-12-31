@@ -387,7 +387,6 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	bintree<Pregunta>::node hijoD = nodo.right();
 	bintree<Pregunta>::node hijoI = nodo.left();
 
-
 	//Vamos a estudiar a los hijos así que en total tenemos 4 nodos
 	std::vector<bintree<Pregunta>::node> estudiando {hijoI, hijoD};
 
@@ -397,19 +396,22 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	//Para no repetir codigo hacemos un bucle
 	for(int i=0; i < 2; i++){
 		//Comprobamos que el hijo sea una pregunta
-		if((*estudiando[i]).es_pregunta()){
-
+		if(!estudiando[i].null() && (*estudiando[i]).es_pregunta()){
+			bool nulo = false;
 			//recortamos la rama que corresponda
-			if(estudiando[i].left().null())
+			if(estudiando[i].left().null()){
 				arbol.prune_right(estudiando[i], arbolico);
-			else if(estudiando[i].right().null())
+				nulo = true;
+			}
+			else if(estudiando[i].right().null()){
 				arbol.prune_left(estudiando[i], arbolico);
-
+				nulo = true;
+			}
 			//insertamos en el cacho que corresponda
-			if (i == 0) {
+			if (i == 0 && nulo) {
 				arbol.insert_left(nodo, arbolico);
 				estudiando[0] = nodo.left();
-			} else {
+			} else if(i == 1 && nulo) {
 				arbol.insert_right(nodo, arbolico);
 				estudiando[1] = nodo.right();
 			}
@@ -417,17 +419,10 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 		}
 	}
 
-	if((*nodo.left()).es_personaje()  &&  (*nodo.right()).es_personaje())
-		return;
-	else if(!nodo.right().null() && (*nodo.right()).es_personaje() )
+	if(nodo.right().null() || (*nodo.right()).es_personaje() )
 		eliminar_recursivo(nodo.left());
-	else if(!nodo.left().null() && (*nodo.left()).es_personaje() )
+	else if(nodo.left().null() || (*nodo.left()).es_personaje() )
 		eliminar_recursivo(nodo.right());
-	else{
-		eliminar_recursivo(nodo.right());
-		eliminar_recursivo(nodo.left());
-	}//Continuamos la recursion
-
 
 }
 
@@ -443,7 +438,6 @@ void QuienEsQuien::eliminar_nodos_redundantes(){
 		}
 		arbol = arbolico;
 	}
-
 	eliminar_recursivo(arbol.root());
 }
 
