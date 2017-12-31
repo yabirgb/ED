@@ -417,12 +417,12 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 		}
 	}
 
-	escribir_arbol_completo();
-	cout << "===============================" << endl;
-	if((*nodo.left()).es_personaje())
-		eliminar_recursivo(nodo.right());
-	else if((*nodo.right()).es_personaje())
+	if((*nodo.left()).es_personaje()  &&  (*nodo.right()).es_personaje())
+		return;
+	else if(!nodo.right().null() && (*nodo.right()).es_personaje() )
 		eliminar_recursivo(nodo.left());
+	else if(!nodo.left().null() && (*nodo.left()).es_personaje() )
+		eliminar_recursivo(nodo.right());
 	else{
 		eliminar_recursivo(nodo.right());
 		eliminar_recursivo(nodo.left());
@@ -432,11 +432,17 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 }
 
 void QuienEsQuien::eliminar_nodos_redundantes(){
-
-	if (arbol.root().left().null())
-		arbol.prune_right(arbol.root(), arbol);
-	else if(arbol.root().right().null())
-		arbol.prune_left(arbol.root(), arbol);
+	bintree<Pregunta> arbolico; //de navidad
+	while(arbol.root().left().null() || arbol.root().right().null()){
+		arbolico.clear();
+		if (arbol.root().left().null()){
+			arbol.prune_right(arbol.root(), arbolico);
+		}
+		else if(arbol.root().right().null()){
+			arbol.prune_left(arbol.root(), arbolico);
+		}
+		arbol = arbolico;
+	}
 
 	eliminar_recursivo(arbol.root());
 }
