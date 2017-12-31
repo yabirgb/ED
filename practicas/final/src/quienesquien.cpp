@@ -383,6 +383,9 @@ void QuienEsQuien::escribir_arbol_completo() const{
 void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	//Estamos estudiando los dos nodos hijos, no el nodo actual
 
+	if(nodo.null())
+		return;
+
 	//Estamos en un nodo y comprobamos si alguno de los hijos es nulo
 	bintree<Pregunta>::node hijoD = nodo.right();
 	bintree<Pregunta>::node hijoI = nodo.left();
@@ -390,39 +393,42 @@ void QuienEsQuien::eliminar_recursivo(bintree<Pregunta>::node nodo){
 	//Vamos a estudiar a los hijos así que en total tenemos 4 nodos
 	std::vector<bintree<Pregunta>::node> estudiando {hijoI, hijoD};
 
-	//Arbol donde guardaremos la parte que recortemos
-	bintree<Pregunta> arbolico; //de navidad
-
 	//Para no repetir codigo hacemos un bucle
 	for(int i=0; i < 2; i++){
+		bintree<Pregunta> arbolico; // de navidad
 		//Comprobamos que el hijo sea una pregunta
-		if(!estudiando[i].null() && (*estudiando[i]).es_pregunta()){
-			bool nulo = false;
+		if(!estudiando[i].null() && (*estudiando[i]).obtener_num_personajes() > 1  &&
+					(estudiando[i].left().null() || estudiando[i].right().null()) ){
 			//recortamos la rama que corresponda
 			if(estudiando[i].left().null()){
 				arbol.prune_right(estudiando[i], arbolico);
-				nulo = true;
 			}
 			else if(estudiando[i].right().null()){
 				arbol.prune_left(estudiando[i], arbolico);
-				nulo = true;
 			}
 			//insertamos en el cacho que corresponda
-			if (i == 0 && nulo) {
+			if (i == 0) {
 				arbol.insert_left(nodo, arbolico);
 				estudiando[0] = nodo.left();
-			} else if(i == 1 && nulo) {
+			} else if(i == 1) {
 				arbol.insert_right(nodo, arbolico);
 				estudiando[1] = nodo.right();
 			}
 
 		}
+
+		if(!nodo.left().null()){
+			if((*nodo.left()).obtener_num_personajes() >=2)
+				eliminar_recursivo(nodo.left());
+		}
+
+		if(!nodo.right().null()){
+			if((*nodo.right()).obtener_num_personajes() >=2)
+				eliminar_recursivo(nodo.right());
+		}
 	}
 
-	if(nodo.right().null() || (*nodo.right()).es_personaje() )
-		eliminar_recursivo(nodo.left());
-	else if(nodo.left().null() || (*nodo.left()).es_personaje() )
-		eliminar_recursivo(nodo.right());
+
 
 }
 
