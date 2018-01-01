@@ -231,7 +231,7 @@ int QuienEsQuien::eligePregunta(std::vector<bool> &que){
 bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
 	const std::vector<bool> per, std::vector<bool> que){
 
-	//Hacemos recursión mientras tengamos preguntas que hcaer
+	//Hacemos recursión mientras tengamos preguntas que hacer
   if(find(que.begin(), que.end(), true) == que.end())
 		return true;
 
@@ -455,7 +455,7 @@ void QuienEsQuien::profundidad_recursivo(bintree<Pregunta>::node nodo,
 	int profundidad, int& suma, int& num_ramas){
 
 	if(nodo.null() || (*nodo).es_personaje()){
-		//Aumentamos en 1 en lugar de 2 ya que la anterior sigue contanto. Es
+		//Aumentamos en 1 en lugar de 2 ya que la anterior sigue contando. Es
 		//una bifurcación.
 		num_ramas++;
 		suma += profundidad;
@@ -463,7 +463,7 @@ void QuienEsQuien::profundidad_recursivo(bintree<Pregunta>::node nodo,
 	}else{
 		//Descendemos un nivel
 		profundidad++;
-		//Evaluamos recurisvamente la situación
+		//Evaluamos recursivamente la situación
 		profundidad_recursivo(nodo.left(), profundidad, suma, num_ramas);
 		profundidad_recursivo(nodo.right(), profundidad, suma, num_ramas);
 	}
@@ -542,4 +542,125 @@ void QuienEsQuien::preguntas_formuladas(bintree<Pregunta>::node jugada){
 	//Introducimos las preguntas en el stack
 	//Imprimos el stack
 
+}
+
+bool QuienEsQuien::aniade_personaje(string nombre, vector<bool> caracteristicas){
+	// Si ya está el personaje
+	if(find(personajes.begin(), personajes.end(), nombre) != personajes.end())
+		return 0;
+
+	bintree<Pregunta>::node actual = arbol.root();
+
+	for(int i=0; i<atributos.size(); i++){
+
+		// Vemos si es una pregunta
+		if((*actual).es_pregunta()){
+
+			// Sumamos 1 al número de personajes para esa pregunta
+			Pregunta aux((*actual).obtener_pregunta(), (*actual).obtener_num_personajes()+1);
+			(*actual) = aux;
+
+			if(caracteristicas[i]) 			// Si tiene el atributo
+				actual = actual.left();				// Nos movemos a la izquierda
+			else 												// No tiene el atributo
+				actual = actual.right();			// Nos movemos a la derecha
+		}
+
+		// Es un personaje
+		else {
+			// Obtenemos el nombre y sus caracteristicas
+			string persona = (*actual).obtener_personaje();
+			int k = find(personajes.begin(), personajes.end(), persona) - personajes.begin();
+			vector<bool> carac = tablero[k];
+
+			int j = i;
+			// Buscamos la primera caracteristica que los distinga
+			bool iguales = true;
+			int preg;
+			while(j<atributos.size() && iguales){
+				if(carac[j] != caracteristicas[j]){
+					iguales = false;
+					preg = j;
+				}
+				j++;
+			}
+
+			// Mismo personaje con otro nombre
+			if(iguales)
+				return 0;
+
+			// Añadimos el personaje
+			personajes.push_back(nombre);
+			tablero.push_back(caracteristicas);
+
+			// Modificamos el arbol
+			Pregunta p(atributos[preg], 2);
+			Pregunta nuevo(nombre, 1);
+			Pregunta estaba(persona, 1);
+			(*actual) = p;
+
+			// Izquierda SI derecha NO
+			if(caracteristicas[preg]){
+				arbol.insert_left(actual, nuevo);
+				arbol.insert_right(actual, estaba);
+			} else {
+				arbol.insert_left(actual, estaba);
+				arbol.insert_right(actual, nuevo);
+			}
+			return 1;
+		}
+	}
+	return 0;
+}
+
+bool QuienEsQuien::elimina_personaje(string nombre){
+	int k = find(personajes.begin(), personajes.end(), nombre) - personajes.begin();
+
+	// Si no está el personaje
+	if(k == personajes.size())
+		return 0;
+
+	vector<bool> caracteristicas = tablero[k];
+
+	// Eliminamos el personaje
+	personajes.erase(personajes.begin()+k);
+	tablero.erase(tablero.begin()+k);
+
+	bintree<Pregunta>::node actual = arbol.root();
+	for(int i=0; i<atributos.size(); i++){
+		// Vemos si es una pregunta
+		if((*actual).es_pregunta()){
+
+			// Restamos 1 al número de personajes para esa pregunta si tiene más 2 personajes
+			// Si tiene 2 el siguiente nodo será el que eliminemos
+			if((*actual).obtener_num_personajes() > 2){
+				Pregunta aux((*actual).obtener_pregunta(), (*actual).obtener_num_personajes()-1);
+				(*actual) = aux;
+			}
+
+			if(caracteristicas[i]) 			// Si tiene el atributo
+				actual = actual.left();				// Nos movemos a la izquierda
+			else 												// No tiene el atributo
+				actual = actual.right();			// Nos movemos a la derecha
+		}
+
+		// Hemos llegado al personaje
+		else {
+			// Modificamos el árbol
+			bintree<Pregunta> aux;
+			actual = actual.parent();
+			int j = find(atributos.begin(), atributos.end(), (*actual).obtener_pregunta()) - atributos.begin();
+			if(caracteristicas[j]) 							// Si tiene el atributo
+				(*actual) = (*actual.right());				// Nos quedamos con el hijo de la derecha
+			else															 // No tiene el atributo
+				(*actual) = (*actual.left());					// Nos quedamos con el hijo de la izquierda
+
+			// Eliminamos los dos hijos
+			arbol.prune_left(actual, aux);
+			arbol.prune_right(actual, aux);
+
+			return 1;
+		}
+	}
+	return 0;
 }

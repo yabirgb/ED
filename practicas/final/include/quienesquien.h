@@ -196,7 +196,9 @@ public:
 	void eliminar_recursivo(bintree<Pregunta>::node);
 
 	//Metodos adicionales
-	void preguntas_formuladas(bintree<Pregunta>::node)
+	void preguntas_formuladas(bintree<Pregunta>::node);
+	bool aniade_personaje(string nombre, vector<bool> caracteristicas);
+	bool elimina_personaje(string nombre);
 
 };
 

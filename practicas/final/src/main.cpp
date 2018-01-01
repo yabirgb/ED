@@ -89,6 +89,27 @@ int main(int argc, char * argv[]){
 	cout << quienEsQuien.profundidad_promedio_hojas()<<endl;
 	cout << "======================================" << endl << endl << endl;
 
+
+	// Prueba añadir personaje
+
+	vector<bool> c = {0,0,1,0};
+	if(quienEsQuien.aniade_personaje("Pepe", c))
+		cout << "Añadido" << endl;
+	else
+		cout << "No añadido" << endl;
+	cout << "=========== Añadir personaje ===========" << endl;
+	quienEsQuien.escribir_arbol_completo();
+
+	// Prueba eliminar personaje
+
+	if(quienEsQuien.elimina_personaje("Antonio"))
+		cout << "Eliminado" << endl;
+	else
+		cout << "No eliminado" << endl;
+	cout << "=========== Eliminar personaje ===========" << endl;
+	quienEsQuien.escribir_arbol_completo();
+
+
 	if(jugar){
 		//quienEsQuien.iniciar_juego();
 	}
