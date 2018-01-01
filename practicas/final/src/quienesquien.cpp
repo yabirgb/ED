@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <list>
-
+#include <stack>
 #include <ctype.h>
 
 QuienEsQuien::QuienEsQuien(){}
@@ -535,7 +535,24 @@ void QuienEsQuien::preguntas_formuladas(bintree<Pregunta>::node jugada){
 	//Para esta parte usaremos un stack. Podríamos usar una lista y recorrerla
 	//en dos sentidos pero para esto un stack es la mejor estructura.
 
+	stack<string> preguntas;
 
+	while(jugada != arbol.root()){
+		string respuesta = "";
+		if(jugada.parent().right() == jugada)
+			respuesta = "no";
+		else
+			respuesta = "sí";
+		jugada = jugada.parent();
+		preguntas.push((*jugada).obtener_pregunta() + " - " + respuesta);
+	}
+
+	cout << "El personaje tiene las siguientes características: " << endl;
+	while(!preguntas.empty()){
+		cout << preguntas.top() << endl;
+		preguntas.pop();
+	}
+	cout << "pero aún no sé cuál es" << endl;
 
 	//Creamos un stack
 	//recorremos hacia arriba el arbol hasta que llegamos a la raiz
