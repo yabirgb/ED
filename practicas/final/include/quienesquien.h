@@ -190,7 +190,7 @@ public:
 
 	///////////////////
 	//True significa que continuamos generando *Keep it cutre*
-	bool crear_recursivo(bintree<Pregunta> &, const std::vector<bool> per, std::vector<bool> que);
+	bool crear_recursivo(bintree<Pregunta> &, std::vector<bool> per, std::vector<bool> que);
 	int eligePregunta(std::vector<bool> &que);
 	void profundidad_recursivo(bintree<Pregunta>::node, int, int &, int & );
 	void eliminar_recursivo(bintree<Pregunta>::node);
@@ -199,7 +199,9 @@ public:
 	void preguntas_formuladas(bintree<Pregunta>::node);
 	bool aniade_personaje(string nombre, vector<bool> caracteristicas);
 	bool elimina_personaje(string nombre);
-
+	int eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bool> &per);
+	bool crear_recursivoOptimizado(bintree<Pregunta> &, std::vector<bool> per, std::vector<bool> que);
+	bintree<Pregunta> crear_arbol_Optimizado();
 };
 
 #endif

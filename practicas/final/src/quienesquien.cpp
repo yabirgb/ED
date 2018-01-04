@@ -229,7 +229,7 @@ int QuienEsQuien::eligePregunta(std::vector<bool> &que){
 }
 
 bool QuienEsQuien::crear_recursivo(bintree<Pregunta> &arbol,
-	const std::vector<bool> per, std::vector<bool> que){
+	std::vector<bool> per, std::vector<bool> que){
 
 	//Hacemos recursión mientras tengamos preguntas que hacer
   if(find(que.begin(), que.end(), true) == que.end())
@@ -687,4 +687,131 @@ bool QuienEsQuien::elimina_personaje(string nombre){
 		}
 	}
 	return 0;
+}
+
+int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bool> &per){
+
+	int best = eligePregunta(que); //Por defecto la siguiente es la primera que
+																	//podmaos elegir
+
+	int contador; //Pregunta que tienen el mejor ratio
+	float best_ratio = 1; //Ponemos el peor caso
+	float ratio;
+	int personajes_vivos = count(per.begin(), per.end(), true); //Esto es de alg
+
+	for(int columna = best; columna < tablero.size(); columna++){
+		contador = 0;
+		for(int fila = 0; fila < tablero[columna].size(); fila++){
+			//En cada columna comprobamos el número de personajes que tienen el atributo
+			if(tablero[columna][fila] && per[columna])
+				contador++;
+		}
+
+		ratio = abs(0.5 - (contador / personajes_vivos));
+		if ( ratio < best_ratio){
+			best_ratio = ratio;
+			best = columna;
+		}
+
+	}
+
+	return best;
+
+}
+
+
+bool QuienEsQuien::crear_recursivoOptimizado(bintree<Pregunta> &arbol,
+	std::vector<bool> per, std::vector<bool> que){
+
+	//Hacemos recursión mientras tengamos preguntas que hacer
+  if(find(que.begin(), que.end(), true) == que.end())
+		return true;
+
+  //Se pueden seguir haciendo preguntas
+
+	//Elegimos una pregunta a hacer
+  int pregunta = eligePreguntaOptimizado(que, per);
+
+	//Vectores que almacenan las posiciones de los personajes que verifican
+	//y que no verfican la pregunta que se hace
+  std::vector<bool> verifican(per.size(), false);
+	std::vector<bool> noVerifican(per.size(), false);
+
+	int vivos = 0;
+
+	//Iteramos sobre los presonajes
+  for(int i = 0; i < per.size(); i++){
+		//Si el personaje sigue en la rama
+    if(per[i]){
+			//Si el personaje verifica la condición
+      if(tablero[i][pregunta] == true)
+				verifican[i] = true;
+      else
+				noVerifican[i] = true;
+
+			vivos ++;
+    }
+  }
+
+	//Desmarcamos la pregunta como pregunta que se pueda hacer
+  que[pregunta] = false;
+
+  //Hay más de un personaje hacemos recursividad
+  if(vivos > 1){
+
+		//Creamos un nodo con la pregunta
+		Pregunta preguntita(atributos[pregunta], vivos);
+
+		//Hacemos un arbol con esa pregunta
+		bintree<Pregunta> arbolico(preguntita);
+		arbol = arbolico;
+
+    //La rama de la derecha son los que NO verifican la condición
+    bintree<Pregunta> rama_izq;
+    //La rama izquierda es la de los personajes que SI verifican
+    //la condición
+    bintree<Pregunta> rama_dch;
+
+		int enVerifican = count(verifican.begin(), verifican.end(), true);
+		int enNoVerfican = count(noVerifican.begin(), noVerifican.end(), true);
+
+		if(enVerifican > 0){
+    	crear_recursivoOptimizado(rama_izq,verifican, que);
+			arbol.insert_left(arbol.root(),rama_izq);
+		}
+		if(enNoVerfican > 0){
+			crear_recursivoOptimizado(rama_dch,noVerifican, que);
+			arbol.insert_right(arbol.root(),rama_dch);
+		}
+  }else{
+
+		//Posicion del ultimo personaje
+		int pos = find(verifican.begin(), verifican.end(), true) - verifican.begin();
+		if(pos == personajes.size())
+			pos = find(noVerifican.begin(), noVerifican.end(), true) - noVerifican.begin();
+
+    Pregunta ultPer(personajes[pos], 1);
+    bintree<Pregunta> arb(ultPer);
+    arbol = arb;
+
+  } //Hemos llegado al final. Fue bonito mientras duro
+
+}
+
+bintree<Pregunta> QuienEsQuien::crear_arbol_Optimizado(){
+	arbol.clear();
+	//Vamos a crear un vector que tenga los personajes
+	//que todavía no hemos descartado. True es que sigue en la partida
+	std::vector<bool> perState(personajes.size(), true);
+
+	//Vector que almacena las preguntas que se han hecho. True se puede preguntar
+	std::vector<bool> queState(atributos.size(), true);
+
+	//Arbol de preguntas
+	bintree<Pregunta> arbol;
+
+	//Creamos una función recursiva
+	crear_recursivoOptimizado(arbol, perState, queState);
+
+	return arbol;
 }
