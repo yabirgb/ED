@@ -75,7 +75,7 @@ int main(int argc, char * argv[]){
 	quienEsQuien.usar_arbol(quienEsQuien.crear_arbol());
 
 	cout << "=========== Arbol en crudo ===========" << endl;
-	quienEsQuien.escribir_arbol_completo();
+	//quienEsQuien.escribir_arbol_completo();
 
 	cout << "\nProfundidad promedio de las hojas del arbol: ";
 	cout << quienEsQuien.profundidad_promedio_hojas() << endl;
@@ -89,7 +89,16 @@ int main(int argc, char * argv[]){
 	cout << quienEsQuien.profundidad_promedio_hojas()<<endl;
 	cout << "======================================" << endl << endl << endl;
 
+	cout << "=========== Arbol en crudo Optimizado ===========" << endl;
+	quienEsQuien.usar_arbol(quienEsQuien.crear_arbol_Optimizado());
+	//quienEsQuien.escribir_arbol_completo();
 
+	cout << "\nProfundidad promedio de las hojas del arbol: ";
+	cout << quienEsQuien.profundidad_promedio_hojas() << endl;
+	cout << "======================================" << endl << endl << endl;
+
+
+	/*
 	// Prueba añadir personaje
 
 	vector<bool> c = {0,0,1,0};
@@ -109,7 +118,7 @@ int main(int argc, char * argv[]){
 	cout << "=========== Eliminar personaje ===========" << endl;
 	quienEsQuien.escribir_arbol_completo();
 
-
+	*/
 	if(jugar){
 		//quienEsQuien.iniciar_juego();
 	}
