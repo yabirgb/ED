@@ -699,7 +699,7 @@ int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bo
 	float ratio;
 	int personajes_vivos = count(per.begin(), per.end(), true); //Esto es de alg
 
-	for(int columna = best; columna < tablero.size(); columna++){
+	for(int columna = best; columna < tablero.size() && que[columna]; columna++){
 		contador = 0;
 		for(int fila = 0; fila < tablero[columna].size(); fila++){
 			//En cada columna comprobamos el número de personajes que tienen el atributo
@@ -707,14 +707,14 @@ int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bo
 				contador++;
 		}
 
-		ratio = abs(0.5 - (contador / personajes_vivos));
+		ratio = abs(0.5 - ((contador + 0.0) / personajes_vivos));
 		if ( ratio < best_ratio){
 			best_ratio = ratio;
 			best = columna;
 		}
 
 	}
-
+	cout << best << " " << best_ratio << endl;
 	return best;
 
 }
