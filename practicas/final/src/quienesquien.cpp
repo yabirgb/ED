@@ -693,22 +693,25 @@ int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bo
 
 	int best = eligePregunta(que); //Por defecto la siguiente es la primera que podamos elegir
 
-	int contador = 0;
+	int contador;
 	float best_ratio = 1; //Ponemos el peor caso
 	float ratio;
 	int personajes_vivos = count(per.begin(), per.end(), true); //Esto es de alg
 
-	for(int y=best; y < tablero.size(); y++){
-		contador = 0;
-		for(int x=0; x < per.size(); x++){
-			if(tablero[x][y] && per[x])
-				contador++;
+	for(int y = best; y < tablero.size() && que[y]; y++){
+		contador = 0; //Reiniciamos el contador
+		for(int x = 0; x < per.size(); x++){
+			//En cada columna comprobamos el número de personajes que tienen el atributo
+				if(tablero[x][y] && per[x])
+					contador++;
 		}
+
 		ratio = abs(0.5 - ((contador + 0.0) / personajes_vivos));
-		if(ratio < best_ratio){
+		if ( ratio < best_ratio){
 			best_ratio = ratio;
 			best = y;
 		}
+
 	}
 	return best;
 }
