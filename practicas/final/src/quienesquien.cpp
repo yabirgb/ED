@@ -318,7 +318,14 @@ void QuienEsQuien::iniciar_juego(){
 	//Jugamos hasta que llegemos a un nodo de tipo personaje
 	while((*jugada_actual).es_pregunta()){
 
+		//Probar el información de jugada
 
+		/*set<string> estado = informacion_jugada(jugada_actual);
+		for(auto i = estado.begin(); i != estado.end(); i++)
+			cout << *i << " ";
+
+		cout << endl;
+		*/
 		cout << "¿Tu personaje es " << (*jugada_actual).obtener_pregunta() << "? [y/n] ";
 		cin >> entrada;
 
