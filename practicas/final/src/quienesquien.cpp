@@ -691,10 +691,9 @@ bool QuienEsQuien::elimina_personaje(string nombre){
 
 int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bool> &per){
 
-	int best = eligePregunta(que); //Por defecto la siguiente es la primera que
-																	//podmaos elegir
+	int best = eligePregunta(que); //Por defecto la siguiente es la primera que podamos elegir
 
-	int contador; //Pregunta que tienen el mejor ratio
+	int contador;
 	float best_ratio = 1; //Ponemos el peor caso
 	float ratio;
 	int personajes_vivos = count(per.begin(), per.end(), true); //Esto es de alg
@@ -714,9 +713,7 @@ int QuienEsQuien::eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bo
 		}
 
 	}
-	cout << best << " " << best_ratio << endl;
 	return best;
-
 }
 
 

@@ -84,7 +84,7 @@ int main(int argc, char * argv[]){
 	quienEsQuien.eliminar_nodos_redundantes();
 
 	cout << "=========== Arbol ===================="<<endl;
-	quienEsQuien.escribir_arbol_completo();
+	// quienEsQuien.escribir_arbol_completo();
 	cout << "\nProfundidad promedio de las hojas del arbol: ";
 	cout << quienEsQuien.profundidad_promedio_hojas()<<endl;
 	cout << "======================================" << endl << endl << endl;
