@@ -125,7 +125,7 @@ public:
 	void mostrar_estructuras_leidas();
 
 	/**
-	  * @brief Este m�todo construye el �rbol de preguntas para todos los personajes del tablero.
+	  * @brief Este método construye el árbol de preguntas para todos los personajes del tablero.
 	  */
 	bintree<Pregunta> crear_arbol();
 
@@ -187,20 +187,79 @@ public:
 	void tablero_aleatorio(int numero_de_personajes);
 
 
+	/**
+		*	@brief Crea el árbol de forma recursiva
+		*	@param arbol Árbol al que van añadiendo las ramas
+		* @param per Vector de personajes vivos hasta ese punto
+		*	@param que Vector con las preguntas que quedan por formularse
+		*	@return Devuelve true
+		*/
+	bool crear_recursivo(bintree<Pregunta> &arbol, std::vector<bool> per, std::vector<bool> que);
 
-	///////////////////
-	//True significa que continuamos generando *Keep it cutre*
-	bool crear_recursivo(bintree<Pregunta> &, std::vector<bool> per, std::vector<bool> que);
+	/**
+		*	@brief Método para elegir la siguiente pregunta al construir el árbol
+		*	@param que Vector de preguntas
+		* @return Devuelve un índice a la primera pregunta que se pueda hacer
+		*/
 	int eligePregunta(std::vector<bool> &que);
-	void profundidad_recursivo(bintree<Pregunta>::node, int, int &, int & );
+
+	/**
+		*	@brief Calcula recusivamente la profundidad de las ramas
+		*	@param nodo actual
+		* @param profundidad de la rama
+		*	@param suma de las profundidades de las ramas
+		*	@param num_ramas Número de ramas
+		*/
+	void profundidad_recursivo(bintree<Pregunta>::node, int profundidad, int &suma, int &num_ramas);
+
+	/**
+		*	@brief Elimina recursivamente las preguntas redundantes
+		*	@param Nodo actual
+		*/
 	void eliminar_recursivo(bintree<Pregunta>::node);
 
 	//Metodos adicionales
+
+	/**
+		*	@brief Imprime en pantalla las preguntas realizadas junto a sus respuestas
+		*				 que se han hecho hasta el momento
+		*	@param nodo actual
+		*/
 	void preguntas_formuladas(bintree<Pregunta>::node);
+
+	/**
+		* @brief Añade un personaje al árbol ya creado
+		*	@param nombre del personaje a añadir
+		*	@param caracteristicas del personaje
+		*	@pre El árbol no puede tener nodos nulos, tiene que estar ya limpio
+		*/
 	bool aniade_personaje(string nombre, vector<bool> caracteristicas);
+
+	/**
+		* @brief Elimina un personaje del juego
+		*	@param nombre del personaje a eliminar
+		*/
 	bool elimina_personaje(string nombre);
+
+	/**
+		*	@brief Método para elegir la siguiente pregunta al construir el árbol
+		*	@param que Vector de preguntas
+		* @return Devuelve un índice a la mejor pregunta
+		*/
 	int eligePreguntaOptimizado(std::vector<bool> &que, std::vector<bool> &per);
+
+	/**
+		*	@brief Crea el árbol de forma recursiva utilizano la mejora pregunta en cada caso
+		*	@param arbol Árbol al que van añadiendo las ramas
+		* @param per Vector de personajes vivos hasta ese punto
+		*	@param que Vector con las preguntas que quedan por formularse
+		*	@return Devuelve true
+		*/
 	bool crear_recursivoOptimizado(bintree<Pregunta> &, std::vector<bool> per, std::vector<bool> que);
+
+	/**
+		* @brief Este método construye el árbol de preguntas optimizado para todos los personajes del tablero.
+		*/
 	bintree<Pregunta> crear_arbol_Optimizado();
 };
 
