@@ -40,6 +40,10 @@ necesarias para alcanzar un personaje. En la mayoría de casos las
 mejoras superan al arbol resultado de limpiar las preguntas
 redundantes.
 
+* `elegirPreguntasOptimizado()` - Metodo que se usa para elegir la
+  mejor pregunta en cada situación y que permite implementar el método
+  anterior.
+
 ## Prueba del juego
 
 En el archivo `main.cpp` se ha implementado un ejemplo para poder
