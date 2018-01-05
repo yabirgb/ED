@@ -326,16 +326,24 @@ void QuienEsQuien::iniciar_juego(){
 
 		cout << endl;
 		*/
-		cout << "¿Tu personaje es " << (*jugada_actual).obtener_pregunta() << "? [y/n] ";
+		cout << "¿Tu personaje es " << (*jugada_actual).obtener_pregunta() << "? [y/n/i] ";
 		cin >> entrada;
 
 		entrada = tolower(entrada);
 
-		if(entrada != 'y' and entrada != 'n' )
+		if(entrada != 'y' and entrada != 'n' and entrada != 'i' )
 			continue;
 
 		if(entrada == 'y')
 			jugada_actual = jugada_actual.left();
+		else if(entrada == 'i'){
+			preguntas_formuladas(jugada_actual);
+			cout << "\nPosibles candidatos: " << endl;
+			set<string> per = informacion_jugada(jugada_actual);
+			for(set<string>::iterator i=per.begin(); i != per.end(); i++)
+				cout << *i << " ";
+			cout << endl;
+		}
 		else
 			jugada_actual = jugada_actual.right();
 	}
