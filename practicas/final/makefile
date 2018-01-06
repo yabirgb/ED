@@ -7,6 +7,7 @@ CXX = g++
 ZIP = ./zip
 # Opciones de compilación
 CPPFLAGS = -g  -I$(INC) -std=c++11
+PRJ = quienesquien
 
 
 # Las macros se usan en las reglas del makefile como si fuesen variables
@@ -49,7 +50,8 @@ $(OBJ)/pregunta.o: $(SRC)/pregunta.cpp
 
 # ************ Limpieza y encapsulado ************
 clean :
-	-rm -r $(OBJ)/* $(BIN)/* $(ZIP)/*
+	rm -rf $(OBJ)/* $(BIN)/* $(ZIP)/*
+	rm -rf ./documentacion
 
 zip : clean
 	zip -r $(ZIP)/$(PRJ).zip *
