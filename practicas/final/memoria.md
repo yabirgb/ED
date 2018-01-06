@@ -51,6 +51,10 @@ mostrar el funcionamiento del programa. Durante la partida se puede
 mostrar la información que se conoce del personaje usando la tecla `i`
 y pulsando `enter`.
 
+También se acompaña un ejemplo para probar el insertado y eliminado de
+un personaje pero aparece comentado ya que se basa en la etiqueta del
+personaje y si este no está devuelve error.
+
 
 
 
